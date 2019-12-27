@@ -14,21 +14,24 @@ return [
 
     'backend' => [
         'roles' => [
-            'created' => 'ロールが正常に作成されました。',
-            'deleted' => 'ロールが削除されました。',
-            'updated' => 'ロールが正常に更新されました。',
+            'created' => 'The role was successfully created.',
+            'deleted' => 'The role was successfully deleted.',
+            'updated' => 'The role was successfully updated.',
         ],
 
         'users' => [
             'cant_resend_confirmation' => 'The application is currently set to manually approve users.',
-            'confirmation_email' => '新しい確認メールがファイルのアドレスに送信されました。',
+            'confirmation_email' => 'A new confirmation e-mail has been sent to the address on file.',
             'confirmed' => 'The user was successfully confirmed.',
-            'created' => 'ユーザーが正常に作成されました。',
-            'deleted' => 'ユーザーが削除されました。',
-            'deleted_permanently' => 'ユーザーが完全に削除されました。',
-            'restored' => 'ユーザーが正常に復元されました。',
-            'updated' => 'ユーザーが正常に更新されました。',
-            'updated_password' => 'ユーザーのパスワードが正常に更新されました。',
+            'created' => 'The user was successfully created.',
+            'deleted' => 'The user was successfully deleted.',
+            'deleted_permanently' => 'The user was deleted permanently.',
+            'restored' => 'The user was successfully restored.',
+            'session_cleared' => "The user's session was successfully cleared.",
+            'social_deleted' => 'Social Account Successfully Removed',
+            'unconfirmed' => 'The user was successfully un-confirmed',
+            'updated' => 'The user was successfully updated.',
+            'updated_password' => "The user's password was successfully updated.",
         ],
     ],
 

@@ -13,23 +13,23 @@ return [
     */
 
     'general' => [
-        'home' => 'ホーム',
-        'logout' => 'ログアウト',
+        'home' => 'Home',
+        'logout' => 'Logout',
     ],
 
     'frontend' => [
         'contact' => 'Contact',
         'dashboard' => 'Dashboard',
-        'login' => 'ログイン',
-        'macros' => 'マクロ',
-        'register' => '登録',
+        'login' => 'Login',
+        'macros' => 'Macros',
+        'register' => 'Register',
 
         'user' => [
             'account' => 'My Account',
-            'administration' => '管理',
-            'change_password' => 'パスワード変更',
+            'administration' => 'Administration',
+            'change_password' => 'Change Password',
             'my_information' => 'My Information',
-            'profile' => 'プロフィール',
+            'profile' => 'Profile',
         ],
     ],
 ];

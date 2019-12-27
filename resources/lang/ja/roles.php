@@ -12,6 +12,6 @@ return [
     |
     */
 
-    'administrator' => '管理者',
-    'user' => 'ユーザ',
+    'administrator' => 'Administrator',
+    'user' => 'User',
 ];

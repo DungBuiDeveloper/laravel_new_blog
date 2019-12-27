@@ -15,9 +15,11 @@ return [
     'backend' => [
         'access' => [
             'users' => [
-                'delete_user_confirm' => 'このユーザーを永久に削除してもよろしいですか？ このユーザーのIDを参照するアプリケーションのどこでもエラーが発生します。 自己責任で行ってください。 これは、元に戻すことはできません。',
-                'if_confirmed_off' => '(確認済みの場合)',
-                'restore_user_confirm' => 'このユーザーを元の状態に戻しますか？',
+                'delete_user_confirm' => 'Are you sure you want to delete this user permanently? Anywhere in the application that references this user\'s id will most likely error. Proceed at your own risk. This can not be un-done.',
+                'if_confirmed_off' => '(If confirmed is off)',
+                'no_deactivated' => 'There are no deactivated users.',
+                'no_deleted' => 'There are no deleted users.',
+                'restore_user_confirm' => 'Restore this user to its original state?',
             ],
         ],
 
@@ -28,37 +30,37 @@ return [
 
         'general' => [
             'all_rights_reserved' => 'All Rights Reserved.',
-            'are_you_sure' => '本当ですか？',
+            'are_you_sure' => 'Are you sure you want to do this?',
             'boilerplate_link' => 'Laravel Boilerplate',
             'continue' => 'Continue',
-            'member_since' => '会員登録日',
-            'minutes' => ' 分',
-            'search_placeholder' => '検索中...',
-            'timeout' => 'あなたは活動がなかったのでセキュリティ上の理由から自動的にログアウトされました。',
+            'member_since' => 'Member since',
+            'minutes' => ' minutes',
+            'search_placeholder' => 'Search...',
+            'timeout' => 'You were automatically logged out for security reasons since you had no activity in ',
 
             'see_all' => [
-                'messages' => 'すべてのメッセージを見る',
-                'notifications' => 'すべて表示',
-                'tasks' => 'すべてのタスク表示',
+                'messages' => 'See all messages',
+                'notifications' => 'View all',
+                'tasks' => 'View all tasks',
             ],
 
             'status' => [
-                'online' => 'オンライン',
-                'offline' => 'オフライン',
+                'online' => 'Online',
+                'offline' => 'Offline',
             ],
 
             'you_have' => [
-                'messages' => '{0} メッセージなし|{1} １件メッセージあり|[2,Inf] :number件のメッセージあり',
-                'notifications' => '{0} 通知なし|{1} １件通知あり|[2,Inf] :number件の通知あり',
-                'tasks' => '{0} タスクなし|{1} １件タスクあり|[2,Inf] :number件のタスクあり',
+                'messages' => '{0} You don\'t have messages|{1} You have 1 message|[2,Inf] You have :number messages',
+                'notifications' => '{0} You don\'t have notifications|{1} You have 1 notification|[2,Inf] You have :number notifications',
+                'tasks' => '{0} You don\'t have tasks|{1} You have 1 task|[2,Inf] You have :number tasks',
             ],
         ],
 
         'search' => [
-            'empty' => '検索テキストを入力してください。',
-            'incomplete' => 'このシステムに独自の検索ロジックを記述する必要があります。',
-            'title' => '検索結果',
-            'results' => '検索結果 :query',
+            'empty' => 'Please enter a search term.',
+            'incomplete' => 'You must write your own search logic for this system.',
+            'title' => 'Search Results',
+            'results' => 'Search Results for :query',
         ],
 
         'welcome' => 'Welcome to the Dashboard',
@@ -70,15 +72,15 @@ return [
             'error' => 'Whoops!',
             'greeting' => 'Hello!',
             'regards' => 'Regards,',
-            'trouble_clicking_button' => '":action_text" ボタンをクリックしても問題が解決しない場合は、以下のURLをコピーしてウェブブラウザに貼り付けてください:',
-            'thank_you_for_using_app' => 'このアプリケーションを使用していただきありがとうございます！',
+            'trouble_clicking_button' => 'If you’re having trouble clicking the ":action_text" button, copy and paste the URL below into your web browser:',
+            'thank_you_for_using_app' => 'Thank you for using our application!',
 
-            'password_reset_subject' => 'パスワードのリセット',
-            'password_cause_of_email' => 'あなたのアカウントのパスワードリセットリクエストを受け取りましたので、このメールをお送りしています。',
-            'password_if_not_requested' => 'パスワードリセットを要求しなかった場合、これ以上の操作は必要ありません。',
-            'reset_password' => 'パスワードをリセットするにはここをクリック',
+            'password_reset_subject' => 'Reset Password',
+            'password_cause_of_email' => 'You are receiving this email because we received a password reset request for your account.',
+            'password_if_not_requested' => 'If you did not request a password reset, no further action is required.',
+            'reset_password' => 'Click here to reset your password',
 
-            'click_to_confirm' => 'あなたのアカウントを確認するにはここをクリックしてください:',
+            'click_to_confirm' => 'Click here to confirm your account:',
         ],
 
         'contact' => [
@@ -121,8 +123,10 @@ return [
         ],
 
         'user' => [
-            'profile_updated' => 'プロフィール更新に成功しました。',
-            'password_updated' => 'パスワード更新に成功しました。',
+            'change_email_notice' => 'If you change your e-mail you will be logged out until you confirm your new e-mail address.',
+            'email_changed_notice' => 'You must confirm your new e-mail address before you can log in again.',
+            'profile_updated' => 'Profile successfully updated.',
+            'password_updated' => 'Password successfully updated.',
         ],
 
         'welcome_to' => 'Welcome to :place',

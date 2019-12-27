@@ -21,6 +21,9 @@ function addDeleteForms() {
         .attr('style', 'cursor:pointer;')
         .attr('onclick', '$(this).find("form").submit();');
 }
+var langDataTable = 'en.json';
+
+export default addDeleteForms;
 
 /**
  * Place any jQuery/helper plugins in here.
@@ -84,4 +87,12 @@ $(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
 });

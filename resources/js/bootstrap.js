@@ -10,6 +10,9 @@ import 'popper.js'; // Required for BS4
 import 'bootstrap';
 require( '../../node_modules/datatables.net/js/jquery.dataTables.js' );
 require( '../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js' );
+import validate from 'jquery-validation';
+import selectpicker from 'bootstrap-select';
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

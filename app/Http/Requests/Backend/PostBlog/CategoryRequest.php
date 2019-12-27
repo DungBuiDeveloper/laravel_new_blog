@@ -24,7 +24,15 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'A title is required',
+            'name.max' => 'A title is max 255',
         ];
     }
 }

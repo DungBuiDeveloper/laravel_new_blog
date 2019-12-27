@@ -1,4 +1,5 @@
 @extends('backend.layouts.general')
+
 @section('title', __('labels.backend.access.users.management') . ' | ' . __('labels.backend.access.users.edit'))
 @section('content')
     <div class="card">
@@ -11,18 +12,25 @@
                     </h4>
                 </div><!--col-->
                 <div class="col-sm-12">
-                    <form id="category_add" method="POST" action={{route('admin.categories.add')}}>
+                    <form method="POST" action={{route('admin.categories.edit')}}>
                         @csrf
+                        <input
+                            type="hidden"
+                            class="form-control"
+                            name="id"
+                            value="{{$category->id}}"
+                            >
                         <div class="form-group">
                             <label for="name">Category</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category" value="{{ old('username') }}">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                value="{{$category->name}}"
+                                placeholder="Enter Category">
 
                         </div>
-
-                        @error('name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-
                         @if (sizeof($categories) > 0)
                             <div class="form-group">
                                 <label for="parent_id">Category Parent</label>
@@ -32,12 +40,21 @@
                                     multiple
                                     class="form-control selectpicker" id="parent_id"
                                     name="parent_id[]">
-                                    @foreach ($categories as $key => $category)
-                                        <option value="{{$category->id}}">name:{{$category->name}} - slug: {{$category->slug}}</option>
+                                    @foreach ($categories as $key => $cat)
+                                        @if ($cat->id !== $category->id)
+                                            <option
+                                                {{ in_array($cat->id, $oldCategories) ? 'selected' : null }}
+                                                value="{{$cat->id}}">name:{{$cat->name}} - slug: {{$cat->slug}}
+                                            </option>
+                                        @endif
+
                                     @endforeach
                                 </select>
                             </div>
                         @endif
+
+
+
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

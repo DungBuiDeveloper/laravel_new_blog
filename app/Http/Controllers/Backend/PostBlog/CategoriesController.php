@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Backend\PostBlog;
 
-use DataTables;
-use App\Models\BackEnd\Category;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\CategoryRepository;
 use App\Http\Requests\Backend\PostBlog\CategoryRequest;
@@ -21,12 +19,7 @@ class CategoriesController extends Controller
             dd($_POST['search']['value']);
         }
 
-        return datatables()->of(Category::all())
-            ->editColumn('action', function ($category) {
-                return '<a href="'.route('admin.categories.showFormEdit', $category->id).'" class="btn btn-xs btn-warning"><i class="fa fa-eye"></i> View</a> <a href="javascript:void(0)" data-id="'.$category->id.'" class="btn btn-xs btn-danger btn-delete"><i class="fa fa-times"></i> Delete</a>';
-            })
-            ->rawColumns(['action'])
-            ->toJson();
+        return $this->CategoryRepository->getAjaxDataTable();
     }
 
     public function index()
@@ -98,23 +91,52 @@ class CategoriesController extends Controller
      */
     public function showFormEdit($slug = '')
     {
-        dd($slug);
+        $category = $this->CategoryRepository->getCategoryBySlug($slug);
+        $categories = $this->CategoryRepository->getAllCategories();
+        $oldCatId = [];
+        foreach ($category['parentOf'] as $key => $value) {
+            $oldCatId[] = $value['id'];
+        }
+
+        return view('backend/category/edit')
+            ->withCategories($categories)
+            ->withCategory($category)
+            ->withOldCategories($oldCatId);
     }
 
     /**
      * [editCategory Put Category].
      */
-    public function editCategory()
+    public function editCategory(CategoryRequest $request)
     {
-        // code...
+        $data = $request->all();
+        $edit = $this->CategoryRepository->editCategory($data);
+
+        if (! $edit->id) {
+            \App::abort(500, 'Some Error');
+        }
+
+        return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.roles.created'));
     }
 
     /**
      * [destroy Delete Category].
      * @param  string $id [Get Category]
      */
-    public function destroy($id = '')
+    public function destroy()
     {
-        // code...
+        $delete = $this->CategoryRepository->destroy($_GET['id']);
+
+        if ($delete) {
+            return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.roles.created'));
+        }
+        \App::abort(500, 'Some Error');
+    }
+
+    public function detail($slug)
+    {
+        $category = $this->CategoryRepository->getCategoryBySlug($slug);
+
+        return view('backend/category/detail')->withCategory($category);
     }
 }

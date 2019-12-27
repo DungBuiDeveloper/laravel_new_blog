@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Backend;
 
+use DataTables;
 use App\Models\BackEnd\Category;
 use App\Repositories\BaseRepository;
 
@@ -18,6 +19,54 @@ class CategoryRepository extends BaseRepository
     public function __construct(Category $model)
     {
         $this->model = $model;
+    }
+
+    public function getAjaxDataTable()
+    {
+        $category = $this->model::with('parentOf')->get();
+
+        return Datatables::of($category)
+
+            ->editColumn('action', function ($category) {
+                $editButton = '<div class="btn-group btn-group-sm"><a
+                title="'.__('buttons.general.crud.edit').'"
+                href="'.route('admin.categories.showFormEdit', $category->slug).'"
+                class="btn btn-xs btn-primary"><i class="fas fa-edit"></i></a>';
+
+                $viewButton = '<a
+                    title="'.__('buttons.general.crud.view').'"
+                    href="'.route('admin.categories.detail', $category->slug).'"
+                    class="btn btn-xs btn-warning"><i class="fas fa-eye"></i></a>';
+
+                $deleteButton = '<a
+                    data-method="delete"
+                    data-trans-button-cancel="'.__('buttons.general.cancel').'"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    href="'.route('admin.categories.destroy', ['id' => $category->id]).'"
+                    data-id="'.$category->id.'"
+                    title="'.__('buttons.general.crud.delete').'"
+                    data-original-title="'.__('buttons.general.crud.delete').'"
+                    class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i> </a></div>';
+
+                return $editButton.$viewButton.$deleteButton;
+            })
+
+            ->editColumn('parent_of', function ($category) {
+                $nameParent = '';
+                foreach ($category->parentOf as $key => $value) {
+                    $nameParent = $nameParent.','.$value->slug;
+                }
+
+                if (substr($nameParent, 1)) {
+                    return substr($nameParent, 1);
+                }
+
+                return '';
+            })
+
+            ->rawColumns(['action', 'parent_of'])
+            ->toJson();
     }
 
     /**
@@ -63,11 +112,34 @@ class CategoryRepository extends BaseRepository
     }
 
     /**
-     * [getCategoryPagi Get Data Category pagination].
+     * [DELETE Category].
      * @return [array]
      */
-    public function getCategoryPagi()
+    public function destroy($id)
     {
-        // code...
+        $deleteCat = $this->model::find($id);
+
+        if ($deleteCat) {
+            return $deleteCat->delete();
+        }
+
+        return false;
+    }
+
+    public function getCategoryBySlug($slug = '')
+    {
+        return $this->model::where('slug', $slug)->with('parentOf')->first();
+    }
+
+    public function editCategory($data)
+    {
+        $cate = $this->model::find($data['id']);
+        $update = $cate->update($data);
+
+        if (isset($data['parent_id'])) {
+            $cate->parentOf()->sync($data['parent_id']);
+        }
+
+        return $cate;
     }
 }

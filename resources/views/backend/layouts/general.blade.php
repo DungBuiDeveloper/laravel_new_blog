@@ -58,8 +58,8 @@
                     <div class="content-header">
                         @yield('page-header')
                     </div><!--content-header-->
+                    @include('includes.partials.messages_general')
 
-                    @include('includes.partials.messages')
                     @yield('content')
                 </div><!--animated-->
             </div><!--container-fluid-->

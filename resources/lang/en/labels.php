@@ -36,6 +36,21 @@ return [
 
     'backend' => [
         'access' => [
+            'category' => [
+                'create' => 'Create Category',
+                'edit' => 'Edit Category',
+                'management' => 'Category Management',
+                'detail' => 'Category Detail',
+                'list' => 'List Category',
+                'table' => [
+                    'name' => 'Name',
+                    'slug' => 'Slug',
+                    'created_at' => 'Created At',
+                    'updated_at' => 'Updated At',
+                    'parent_of' => 'Parent',
+                    'action' => 'Action',
+                ],
+            ],
             'roles' => [
                 'create' => 'Create Role',
                 'edit' => 'Edit Role',
