@@ -22,6 +22,7 @@ function addDeleteForms() {
         .attr('onclick', '$(this).find("form").submit();');
 }
 var langDataTable = 'en.json';
+var langCKeditor4 = 'en';
 
 export default addDeleteForms;
 

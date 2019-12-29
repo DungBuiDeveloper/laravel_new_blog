@@ -1,7 +1,10 @@
 
 import addDeleteForms from "../plugins";
 $(function () {
-
+    CKEDITOR.replace( 'editor', {
+        language: langCKeditor4,
+        uiColor: '#9AB8F3'
+    });
 
     $.ajaxSetup({
         headers: {

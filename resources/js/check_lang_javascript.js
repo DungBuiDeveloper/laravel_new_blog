@@ -44,10 +44,12 @@ $(function () {
         case 'en':
             $.extend($.validator.messages, en);
             langDataTable = 'en.json';
+            langCKeditor4 = 'en';
             break;
         case 'ja':
             $.extend($.validator.messages, ja);
             langDataTable = 'ja.json';
+            langCKeditor4 = 'ja';
             break;
         default:
         $.extend($.validator.messages, en);

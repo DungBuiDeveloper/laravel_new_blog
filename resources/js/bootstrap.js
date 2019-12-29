@@ -12,7 +12,7 @@ require( '../../node_modules/datatables.net/js/jquery.dataTables.js' );
 require( '../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js' );
 import validate from 'jquery-validation';
 import selectpicker from 'bootstrap-select';
-
+import './ckeditor/ckeditor.js';
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -23,6 +23,7 @@ import selectpicker from 'bootstrap-select';
 window.$ = window.jQuery = $;
 window.Swal = Swal;
 window._ = _; // Lodash
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

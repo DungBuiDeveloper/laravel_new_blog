@@ -12,7 +12,8 @@
         "prod": "cross-var $npm_execpath run production",
         "production": "cross-env NODE_ENV=production webpack --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "test": "cross-env NODE_ENV=test jest",
-        "tdd": "cross-var $npm_execpath run test -- --watch --notify"
+        "tdd": "cross-var $npm_execpath run test -- --watch --notify",
+        "cp_ck4":"rm -rf public/ckeditor4 && mkdir public/ckeditor4 && cp -R node_modules/ckeditor4/plugins public/ckeditor4 && cp -R node_modules/ckeditor4/contents.css public/ckeditor4 && cp -R node_modules/ckeditor4/lang public/ckeditor4 && cp -R node_modules/ckeditor4/styles.js public/ckeditor4 && cp -R node_modules/ckeditor4/config.js public/ckeditor4 && cp -R node_modules/ckeditor4/skins public/ckeditor4"
     },
     "devDependencies": {
         "@coreui/coreui": "^2.1.12",
@@ -23,6 +24,7 @@
         "babel-jest": "^24.8.0",
         "bootstrap": "^4.3.1",
         "bootstrap-select": "^1.13.12",
+        "ckeditor4": "^4.13.1",
         "cross-env": "^5.2.0",
         "cross-var": "^1.1.0",
         "datatables.net-bs4": "^1.10.20",
