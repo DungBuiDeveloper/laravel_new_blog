@@ -133,6 +133,11 @@ class CategoriesController extends Controller
         \App::abort(500, 'Some Error');
     }
 
+    /**
+     * [detail show category detail].
+     * @param  [string] $slug [unique condition for get category]
+     * @return [Object]       [Category Detail]
+     */
     public function detail($slug)
     {
         $category = $this->CategoryRepository->getCategoryBySlug($slug);
