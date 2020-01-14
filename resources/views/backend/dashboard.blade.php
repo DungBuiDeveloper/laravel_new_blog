@@ -6,8 +6,9 @@
     <div class="row">
         <div class="col">
             <textarea name="content" id="editor">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
-        </textarea>
+                &lt;p&gt;This is some sample content.&lt;/p&gt;
+            </textarea>
+
             <div class="card">
                 <div class="card-header">
                     <strong>@lang('strings.backend.dashboard.welcome') {{ $logged_in_user->name }}!</strong>

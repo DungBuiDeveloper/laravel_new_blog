@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
+    protected $guarded = [];
+
     protected $table = 'categories';
 
     protected $fillable = ['name', 'slug', 'created_at', 'updated_at', 'parent_of'];
@@ -19,4 +22,6 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Models\BackEnd\Category', 'category_parent', 'cat_pa_id', 'cat_id')->withTimestamps();
     }
+
+
 }

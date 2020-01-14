@@ -13,7 +13,13 @@ require( '../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js' );
 import validate from 'jquery-validation';
 import selectpicker from 'bootstrap-select';
 import './ckeditor/ckeditor.js';
-
+import * as Dropzone from 'dropzone';
+Dropzone.autoDiscover = false;
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -21,6 +27,7 @@ import './ckeditor/ckeditor.js';
  */
 
 window.$ = window.jQuery = $;
+window.Dropzone = Dropzone;
 window.Swal = Swal;
 window._ = _; // Lodash
 

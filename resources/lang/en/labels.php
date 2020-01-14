@@ -51,6 +51,20 @@ return [
                     'action' => 'Action',
                 ],
             ],
+            'media' => [
+                'create' => 'Upload Media',
+                'management' => 'Media Management',
+                'list' => 'List Media',
+                'table' => [
+                    'thumb' => 'Thumbnail',
+                    'name' => 'Name',
+                    'url' => 'Url',
+                    'mime_type' => 'Type',
+                    'posted' => 'Posted At',
+                    'action' => 'Action',
+                    'file' => 'Files',
+                ],
+            ],
             'roles' => [
                 'create' => 'Create Role',
                 'edit' => 'Edit Role',

@@ -40,9 +40,10 @@ return [
     'general' => [
         'cancel' => 'Cancel',
         'continue' => 'Continue',
-
+        'submit' => 'Submit',
         'crud' => [
             'create' => 'Create',
+            'detail' => 'Detail',
             'delete' => 'Delete',
             'edit' => 'Edit',
             'update' => 'Update',

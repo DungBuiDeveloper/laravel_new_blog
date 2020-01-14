@@ -30,6 +30,12 @@ return [
                 'management' => 'Category Management',
                 'detail' => 'Category Detail',
             ],
+            'media' => [
+                'create' => 'Upload Media',
+                'edit' => 'Edit Category',
+                'management' => 'Category Management',
+                'detail' => 'Category Detail',
+            ],
 
             'users' => [
                 'all' => 'All Users',
@@ -51,6 +57,7 @@ return [
 
         'sidebar' => [
             'dashboard' => 'Dashboard',
+            'media' => 'Media Manager',
             'categories' => 'Categories',
             'general' => 'General',
             'history' => 'History',

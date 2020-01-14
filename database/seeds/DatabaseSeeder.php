@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\BackEnd\MediaLibrary;
 use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+        MediaLibrary::firstOrCreate([]);
 
         $this->truncateMultiple([
             'cache',

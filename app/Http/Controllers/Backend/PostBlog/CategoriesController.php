@@ -13,13 +13,9 @@ class CategoriesController extends Controller
         $this->CategoryRepository = $CategoryRepository;
     }
 
-    public function ajaxDataTable($value = '')
+    public function ajaxDataTable()
     {
-        if ($_POST['search']['value'] !== '') {
-            dd($_POST['search']['value']);
-        }
-
-        return $this->CategoryRepository->getAjaxDataTable();
+        return $this->CategoryRepository->getAjaxDataTable(null);
     }
 
     public function index()

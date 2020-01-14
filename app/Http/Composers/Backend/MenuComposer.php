@@ -32,6 +32,13 @@ class MenuComposer
                     'icon' => '<i class="nav-icon fas fa-book"></i>',
                     'child' => null,
                 ],
+                [
+                    'name' => __('menus.backend.sidebar.media'),
+                    'link' => route('admin.media.index'),
+                    'active' => \Request::is('admin/media/*'),
+                    'icon' => '<i class="nav-icon fas fa-photo-video"></i>',
+                    'child' => null,
+                ],
             ],
             'admin' => [],
         ];

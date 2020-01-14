@@ -7,6 +7,8 @@
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
 @import '~bootstrap-select/sass/bootstrap-select.scss';
+@import '~dropzone/dist/min/dropzone.min.css';
+
 // Header Styles
 .read-only, .logged-in-as {
   margin: 0 !important;

@@ -34,7 +34,12 @@ return [
             'updated_password' => "The user's password was successfully updated.",
         ],
     ],
-
+    'media' => [
+        'created' => 'The role was successfully created.',
+        'deleted' => 'The role was successfully deleted.',
+        'updated' => 'The role was successfully updated.',
+        'downloaded' => 'The file was successfully downloaded.',
+    ],
     'frontend' => [
         'contact' => [
             'sent' => 'Your information was successfully sent. We will respond back to the e-mail provided as soon as we can.',

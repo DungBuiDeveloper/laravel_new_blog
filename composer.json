@@ -20,11 +20,15 @@
         "lab404/laravel-impersonate": "^1.4",
         "langleyfoxall/laravel-nist-password-rules": "^4.0",
         "laravel/framework": "^6.0",
+        "laravel/helpers": "^1.1",
         "laravel/socialite": "^4.1",
+        "nicolaslopezj/searchable": "^1.12",
         "spatie/laravel-html": "^2.22",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^3.0",
+        "spatie/laravel-searchable": "^1.5",
         "torann/geoip": "^1.0",
+        "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

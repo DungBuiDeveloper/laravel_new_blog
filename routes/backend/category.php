@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\MediaLibraryController;
 use App\Http\Controllers\Backend\PostBlog\CategoriesController;
 
 // All route names are prefixed with 'admin.'.
@@ -12,3 +13,5 @@ Route::post('categories/add', [CategoriesController::class, 'storeCategory'])->n
 Route::post('categories/edit', [CategoriesController::class, 'editCategory'])->name('categories.edit');
 Route::delete('categories/destroy', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 Route::post('categories/ajaxData', [CategoriesController::class, 'ajaxDataTable'])->name('categories.ajax');
+
+Route::post('media/ajaxData', [MediaLibraryController::class, 'ajaxDataTable'])->name('media.ajax');
