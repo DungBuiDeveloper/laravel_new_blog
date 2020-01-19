@@ -26,6 +26,10 @@ var langCKeditor4 = 'en';
 
 export default addDeleteForms;
 
+
+
+
+
 /**
  * Place any jQuery/helper plugins in here.
  */
@@ -97,6 +101,9 @@ $(function () {
     });
 
 
-    
+
+
+
+
 
 });

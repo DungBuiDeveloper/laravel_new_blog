@@ -13,6 +13,7 @@
                 </div><!--col-->
             </div>
         </div>
+        {{-- Header Card --}}
 
         <div class="card-body">
             <div class="row">
@@ -29,6 +30,7 @@
                         @error('title')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+                        {{-- Title --}}
 
 
                         <div class="form-group">
@@ -40,6 +42,7 @@
                         @error('the_excerpt')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+                        {{-- Excerpt --}}
 
 
                         @if (sizeof($categories) > 0)
@@ -57,26 +60,48 @@
                                 </select>
                             </div>
                         @endif
+                        {{-- Categories --}}
 
 
-
-
+                        <ul class="nav nav-tabs nav-custom" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#image_thumbnail" role="tab" data-toggle="tab">@lang('labels.backend.access.post.table.thumbnail')</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#video_thumbnail" role="tab" data-toggle="tab">@lang('labels.backend.access.post.table.video')</a>
+                            </li>
+                        </ul>
                         <div class="form-group">
-                            <label for="thumbnail">@lang('labels.backend.access.post.table.thumbnail')</label>
-                            <input type="hidden" class="form-control" id="thumbnail" name="thumbnail" placeholder="@lang('labels.backend.access.post.table.thumbnail')" value="{{ old('thumbnail') }}">
-                            <div class="dz-clickable dz-message dz-preview dz-image-preview needsclick">
-                                <i class="fa fa-camera" aria-hidden="true"></i>
-                                <div class="dropzone-previews dropzone"></div>
-                            </div>
+                            <input type="hidden" value="image" name="type_thumb" id="type_thumb" />
+                            <div id="image_thumbnail" role="tabpanel" class="tab-pane fade in active show">
 
-                            <div>
+                                <input type="hidden" class="form-control" id="thumbnail" name="thumbnail" placeholder="@lang('labels.backend.access.post.table.thumbnail')" value="{{ old('thumbnail') }}">
+
+                                <div class="dz-clickable dz-message dz-preview dz-image-preview needsclick">
+                                    <i class="fa fa-camera" aria-hidden="true"></i>
+                                    <div class="dropzone-previews dropzone"></div>
+                                </div>
+
                                 <a href="javascript:;" type="button"  data-toggle="modal" data-target="#imagelistModal">
                                     @lang('labels.backend.access.post.thumbnailTitle')
                                 </a>
-                            </div>
 
-                            <div class="preview_image"></div>
+                                <div class="preview_image"></div>
+                            </div>
+                            {{-- Image --}}
+
+                            <div id="video_thumbnail" role="tabpanel" class="tab-pane fade">
+                                <input type="text" class="form-control" id="video" name="video" placeholder="@lang('labels.backend.access.post.table.video')" value="{{ old('video') }}">
+
+                                <div class="preview_video"></div>
+                            </div>
+                            {{-- Video --}}
+
                         </div>
+                        {{-- Thumnail --}}
+
+
+
 
 
 
@@ -89,15 +114,20 @@
                                 &lt;p&gt;This is some sample content.&lt;/p&gt;
                             </textarea>
                         </div>
+                        {{-- Text Edittor --}}
 
 
                         <button type="submit" class="btn btn-primary">@lang('buttons.general.submit')</button>
                     </form>
+                    {{-- Form/ --}}
                 </div>
+                {{-- Cover Col 12 --}}
             </div>
+            {{-- Row --}}
         </div>
+        {{-- Body Card --}}
     </div>
-
+    {{-- Card /  --}}
 
     <div class="list-image-modal">
         <div class="modal fade" id="imagelistModal" tabindex="-1" role="dialog" aria-labelledby="imagelistModalLabel" aria-hidden="true">

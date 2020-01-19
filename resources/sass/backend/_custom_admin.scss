@@ -13,12 +13,13 @@
   border-radius: 0;
 }
 
-ul.list-image {
+.list-image {
   display: block;
   padding: 3px 0 0 0;
   width: 100%;
+  float: left;
 }
-ul.list-image li {
+.list-image li {
   list-style-type: none;
   display: table-cell;
   border-left: 1px solid #fff;
@@ -26,14 +27,13 @@ ul.list-image li {
   position: relative;
   overflow: hidden;
   float: left;
-  margin-top: -3px;
-  width: 14.2%;
+  width: 10%;
   height: 180px;
 }
-ul.list-image li img {
+.list-image li img {
   width: 100%;
 }
-ul.list-image li span {
+.list-image li span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -47,7 +47,7 @@ ul.list-image li span {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-ul.list-image li:hover span {
+.list-image li:hover span {
   top: 0;
   left: 0;
   width: 100%;
@@ -55,10 +55,10 @@ ul.list-image li:hover span {
   position: absolute;
 
 }
-ul.list-image li h2 {
+.list-image li h2 {
     display: none;
 }
-ul.list-image li:hover h2 {
+.list-image li:hover h2 {
     display: block;
     position: absolute;
     top: 50%;
@@ -73,37 +73,46 @@ ul.list-image li:hover h2 {
     width: 100%;
     padding: 5px;
 }
-ul.list-image li a {
+.list-image li a {
   color: #fff;
   text-decoration: none;
 }
-ul.list-image li.navigation div {
+.list-image li.navigation div {
   background: #ddd;
   text-align: center;
   padding: 39% 0;
   font-size: 30px;
 }
-ul.list-image li.navigation .fa {
+.list-image li.navigation .fa {
   color: #aaa;
   text-shadow: 1px 1px 1px #fff;
 }
-ul.list-image li.navigation a .fa {
+.list-image li.navigation a .fa {
 	color: #888;
   -webkit-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-ul.list-image li.navigation a:hover .fa {
+.list-image li.navigation a:hover .fa {
   color: #78AB46;
 }
 .form-group label {
     font-weight: bold;
 }
-.preview_image {
+.preview_image , .preview_video{
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px 0;
+}
+.tab-pane.fade:not(.show) {
+    display: none;
+}
+.tab-pane.fade {
+    display: block;
+}
+.nav-custom {
+    margin-bottom: 10px;
 }

@@ -42,6 +42,25 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+window.convertMedia = function convertMedia (html , video){
+    var pattern1 = /(?:http?s?:\/\/)?(?:www\.)?(?:vimeo\.com)\/?(.+)/g;
+    var pattern2 = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
+    var pattern3 = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(?:jpg|jpeg|gif|png))/gi;
+    var replacement;
+    if (pattern1.test(html) && video == true) {
+        replacement = '<iframe width="420" height="345" src="//player.vimeo.com/video/$1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        return html.replace(pattern1, replacement);
+    }else if(pattern2.test(html) && video == true) {
+        replacement = '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
+        return html.replace(pattern2, replacement);
+    }else if(pattern2.test(html) && video == false) {
+        replacement = '<a href="$1" target="_blank"><img class="sml" src="$1" /></a><br />';
+        return html.replace(pattern3, replacement);
+    }else {
+        return false;
+    }
+
+}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

@@ -30,7 +30,7 @@ class MediaRepository extends BaseRepository
     public function getMediaManager()
     {
 
-        return $this->model::first()->media()->where('mime_type','LIKE','image/%')->paginate(5)->appends(['type' => 'media']);
+        return $this->model::first()->media()->where('mime_type','LIKE','image/%')->paginate(20)->appends(['type' => 'media']);
     }
 
     public function getAjaxDataTable()

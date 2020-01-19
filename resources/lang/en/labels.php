@@ -82,6 +82,7 @@ return [
                     'author_id' => 'Author',
                     'created_at' => 'Created At',
                     'updated_at' => 'Updated At',
+                    'video' => 'Video Thumbnail',
                     'action' => 'Action',
                 ],
             ],

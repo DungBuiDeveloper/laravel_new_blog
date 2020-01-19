@@ -1,8 +1,29 @@
 
 import addDeleteForms from "../plugins";
+
 $(function () {
 
+    function functionName() {
 
+    }
+    $('.nav-custom .nav-item').click(function() {
+    
+        $('#type_thumb').val('image');
+        if ($(this).find('.nav-link').attr('href') == '#video_thumbnail') {
+            $('#type_thumb').val('video');
+        }
+    })
+    //Get embed When input video change
+    $(document).on("change","#video",function() {
+        let media = convertMedia($(this).val() , true);
+        if (media === false) {
+            alert('Invalid Url');
+            $(this).val('');
+            return true;
+        }else {
+            $('.preview_video').empty().append(media);
+        }
+    });
     //Click get image for thumb
     $(document).on("click",".get_info_iamge",function() {
         let data = JSON.parse($(this).find('.info').html());
@@ -86,7 +107,7 @@ $(function () {
     }
 
 
-    
+
 
     // if ($('#tag_table').length) {
     //     $('#tag_table').DataTable({
