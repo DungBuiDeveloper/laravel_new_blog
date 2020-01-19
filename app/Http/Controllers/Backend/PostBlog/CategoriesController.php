@@ -20,6 +20,7 @@ class CategoriesController extends Controller
 
     public function index()
     {
+
         return view('backend/category/index');
     }
 
@@ -52,7 +53,7 @@ class CategoriesController extends Controller
             return $slug;
         }
         // Just append numbers like a savage until we find not used.
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $newSlug = $slug.'-'.$i;
 
             if (! $allSlugs->contains('slug', $newSlug)) {
@@ -72,12 +73,11 @@ class CategoriesController extends Controller
         $data['slug'] = $this->createSlug($data['name']);
 
         $save = $this->CategoryRepository->storeCategory($data);
-
         if (! $save->id) {
             \App::abort(500, 'Some Error');
         }
 
-        return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.roles.created'));
+        return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.category.created'));
     }
 
     /**
@@ -112,7 +112,7 @@ class CategoriesController extends Controller
             \App::abort(500, 'Some Error');
         }
 
-        return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.roles.created'));
+        return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.category.created'));
     }
 
     /**
@@ -124,7 +124,7 @@ class CategoriesController extends Controller
         $delete = $this->CategoryRepository->destroy($_GET['id']);
 
         if ($delete) {
-            return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.roles.created'));
+            return redirect()->route('admin.categories.list')->withFlashSuccess(__('alerts.backend.category.created'));
         }
         \App::abort(500, 'Some Error');
     }

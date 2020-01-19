@@ -1,6 +1,6 @@
 $(function () {
     var en = {
-        required: "This field is required 2.",
+        required: "This field is required.",
         remote: "Please fix this field.",
         email: "Please enter a valid email address.",
         url: "Please enter a valid URL.",

@@ -51,6 +51,7 @@ class MediaLibraryController extends Controller
      */
     public function store(MediaLibraryRequest $request)
     {
+
         $files = $request->file('files');
 
         foreach ($files as $key => $file) {
@@ -75,5 +76,51 @@ class MediaLibraryController extends Controller
         }
 
         return redirect()->route('admin.media.index')->withFlashDanger(__('media.deleted'));
+    }
+    /**
+     * [storeOnlyImage Create Media Image for upload ]
+     * @return [object] [Model iamge]
+     */
+    public function storeOnlyImage(MediaLibraryRequest $request)
+    {
+        try {
+            $file = $request->file('files');
+            $name = $file->getClientOriginalName();
+            $mediaUpload = MediaLibrary::first()
+                ->addMedia($file)
+                ->usingName($name)
+                ->toMediaCollection();
+            return response()->json(['success' => true, 'message' => __('media.created'), 'url_image' => $mediaUpload->getUrl('thumb') , 'id_image' => $mediaUpload->id]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+
+
+    }
+
+    public function storeCkEditor(MediaLibraryRequest $request)
+    {
+        if($request->hasFile('upload')) {
+
+
+
+            $file = $request->file('upload');
+            $name = $file->getClientOriginalName();
+            $mediaUpload = MediaLibrary::first()
+                ->addMedia($file)
+                ->usingName($name)
+                ->toMediaCollection();
+            $url = url($mediaUpload->getUrl('thumb'));
+
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', 'uploaded')</script>";
+            
+            @header('Content-type: text/html; charset=utf-8');
+            echo $response;
+
+
+
+        }
     }
 }

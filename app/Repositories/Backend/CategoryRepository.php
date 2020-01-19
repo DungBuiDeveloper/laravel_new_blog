@@ -5,7 +5,7 @@ namespace App\Repositories\Backend;
 use DataTables;
 use App\Models\BackEnd\Category;
 use App\Repositories\BaseRepository;
-
+use Cache;
 /**
  * Class PermissionRepository.
  */
@@ -21,8 +21,14 @@ class CategoryRepository extends BaseRepository
         $this->model = $model;
     }
 
+    /**
+     * [getAjaxDataTable Ajax Process DataTable]
+     * @param  [string] $search [Search String]
+     * @return [array]         [datatable Category]
+     */
     public function getAjaxDataTable($search)
     {
+
         $category = $this->model::with('parentOf')->get();
 
         return Datatables::of($category)
@@ -76,14 +82,18 @@ class CategoryRepository extends BaseRepository
      */
     public function storeCategory($data)
     {
+
         try {
-            $category = $this->model::create($data);
+            $cacheCategory = Cache::get('category', $this->model::all());
+
+            $categoryNew = $this->model::create($data);
 
             if (isset($data['parent_id'])) {
-                $category->parentOf()->attach($data['parent_id']);
+                $categoryNew->parentOf()->attach($data['parent_id']);
             }
-
-            return $category;
+            $cacheCategory[] = $categoryNew;
+            Cache::forever('category', $cacheCategory);
+            return $categoryNew;
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -108,7 +118,10 @@ class CategoryRepository extends BaseRepository
      */
     public function getAllCategories()
     {
-        return $this->model::all();
+        $category =  Cache::rememberForever('category', function() {
+            return $this->model::all();
+        });
+        return $category;
     }
 
     /**
@@ -117,29 +130,72 @@ class CategoryRepository extends BaseRepository
      */
     public function destroy($id)
     {
-        $deleteCat = $this->model::find($id);
 
-        if ($deleteCat) {
-            return $deleteCat->delete();
+        try {
+            $deleteCat = $this->model::find($id);
+            $cacheCategory = Cache::get('category', null);
+            if ($deleteCat) {
+                if ($cacheCategory) {
+                    foreach ($cacheCategory as $key => $cat) {
+                        if ($cat->id == $id) {
+
+                            unset($cacheCategory[$key]);
+
+                            Cache::forever('category', $cacheCategory);
+                        }
+                    }
+                }
+
+                return $deleteCat->delete();
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
 
-        return false;
     }
 
     public function getCategoryBySlug($slug = '')
     {
-        return $this->model::where('slug', $slug)->with('parentOf')->first();
+        try {
+            return $this->model::where('slug', $slug)->with('parentOf')->first();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+
     }
 
     public function editCategory($data)
     {
-        $cate = $this->model::find($data['id']);
-        $update = $cate->update($data);
+        try {
+            $categoryEdit = $this->model::find($data['id']);
+            $update = $categoryEdit->update($data);
 
-        if (isset($data['parent_id'])) {
-            $cate->parentOf()->sync($data['parent_id']);
+            if (isset($data['parent_id'])) {
+                $categoryEdit->parentOf()->sync($data['parent_id']);
+            }
+            if ($update) {
+                $cacheCategory = Cache::get('category', null);
+                if ($cacheCategory) {
+                    foreach ($cacheCategory as $key => $cat) {
+                        if ($cat->id == $data['id']) {
+
+                            $cacheCategory[$key] = $categoryEdit;
+
+                            Cache::forever('category', $cacheCategory);
+                        }
+                    }
+                }
+                return $categoryEdit;
+            }
+            return false;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
 
-        return $cate;
     }
+
+
 }

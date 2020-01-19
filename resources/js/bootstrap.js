@@ -30,7 +30,7 @@ window.$ = window.jQuery = $;
 window.Dropzone = Dropzone;
 window.Swal = Swal;
 window._ = _; // Lodash
-
+window.baseUrl = $('base').attr('href');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

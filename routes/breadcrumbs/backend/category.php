@@ -11,7 +11,7 @@ Breadcrumbs::for('admin.categories.showFormAdd', function ($trail) {
 
 Breadcrumbs::for('admin.categories.showFormEdit', function ($trail, $slug) {
     $trail->parent('admin.categories.list');
-    $trail->push(__('menus.backend.access.category.create'), route('admin.categories.showFormEdit', $slug));
+    $trail->push(__('menus.backend.access.category.edit'), route('admin.categories.showFormEdit', $slug));
 });
 
 Breadcrumbs::for('admin.categories.detail', function ($trail, $slug) {

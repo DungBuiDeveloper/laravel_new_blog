@@ -17,7 +17,7 @@ function addDeleteForms() {
                 '</form>\n';
         } else { return '' }
     })
-        .attr('href', '#')
+        .attr('href', 'javascript:;')
         .attr('style', 'cursor:pointer;')
         .attr('onclick', '$(this).find("form").submit();');
 }
@@ -95,5 +95,8 @@ $(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+
+    
 
 });

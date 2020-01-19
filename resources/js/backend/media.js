@@ -2,12 +2,13 @@ import addDeleteForms from "../plugins";
 
 $(function () {
 
+
     if ($('#media-dropzone').length) {
 
-
+        // Media DropZone Config
         new Dropzone('#media-dropzone', {
 
-                autoProcessQueue: false,
+                autoProcessQueue: true,
                 uploadMultiple: true,
                 acceptedFiles:"image/*,application/pdf,application/octet-stream,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 paramName: "files",
@@ -36,6 +37,7 @@ $(function () {
                     // Hide the success button or the complete form.
                   });
                   this.on("successmultiple", function(files, response) {
+
                     window.location.href = response.link;
                   });
                   this.on("errormultiple", function(files, response) {
@@ -58,17 +60,12 @@ $(function () {
 
                   });
 
-
-
-
-
-
                 }
 
         	  });
     }
 
-
+    //DataTable Media Config
     var dtmedia = $('#media_table').DataTable({
         "processing": true,
         "serverSide": true,
@@ -79,7 +76,7 @@ $(function () {
         "language": {
             "url": "http://myblog.test/json/"+langDataTable
         },
-        "lengthMenu": [ 5, 10, 15, 25, 30 ],
+        "lengthMenu": [ 20, 50, 100 ],
         "columns": [
             { data: "id" , orderable: false},
             { data: "thumb" , orderable: false},
@@ -101,7 +98,7 @@ $(function () {
 
 
         ],
-        "order": [[ 1, "desc" ]],
+        "order": [[ 16, "desc" ]],
         "drawCallback": ( settings ) => {
             addDeleteForms();
         }
@@ -121,18 +118,40 @@ $(function () {
 
 
 
-
+    //Copy or Paste Url image
     $(document).on('click','.click-copy-url',function(){
         let id = $(this).attr('data-id_media');
         var copyText = document.getElementById(`copy_url${id}`);
-
+        var url = $(`#copy_url${id}`).val()
         /* Select the text field */
         copyText.select();
         copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
         /* Copy the text inside the text field */
         document.execCommand("copy");
 
+        var checkParam = getUrlParam('CKEditor');
+
+        if (checkParam) {
+            returnFileUrl(url);
+        }
+
     });
+
+    //Get Url Param by Javascript
+    function getUrlParam( paramName ) {
+       var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
+       var match = window.location.search.match( reParam );
+
+       return ( match && match.length > 1 ) ? match[1] : null;
+    }
+    // Close CK Editor And Paste url
+    function returnFileUrl(fileUrl) {
+
+        var funcNum = getUrlParam( 'CKEditorFuncNum' );
+
+        window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
+        window.close();
+    }
+
 
 });

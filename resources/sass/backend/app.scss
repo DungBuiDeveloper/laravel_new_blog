@@ -3,9 +3,11 @@
 // If you want to override variables do it here
 @import "variables";
 
+
 // Import styles
 @import "~@coreui/coreui/scss/coreui";
-
+@import "spin_loader";
+@import "custom_admin";
 // Fix mobile footer
 .app-footer {
     flex: 0 0;

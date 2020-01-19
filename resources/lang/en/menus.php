@@ -30,13 +30,24 @@ return [
                 'management' => 'Category Management',
                 'detail' => 'Category Detail',
             ],
+            'tag' => [
+                'create' => 'Create Tag',
+                'edit' => 'Edit Tag',
+                'management' => 'Tag Management',
+                'detail' => 'Tag Detail',
+            ],
             'media' => [
                 'create' => 'Upload Media',
                 'edit' => 'Edit Category',
                 'management' => 'Category Management',
                 'detail' => 'Category Detail',
             ],
-
+            'post' => [
+                'create' => 'Create Post',
+                'edit' => 'Edit Post',
+                'management' => 'Post Management',
+                'detail' => 'Post Detail',
+            ],
             'users' => [
                 'all' => 'All Users',
                 'change-password' => 'Change Password',
@@ -58,6 +69,8 @@ return [
         'sidebar' => [
             'dashboard' => 'Dashboard',
             'media' => 'Media Manager',
+            'tags' => 'Tags',
+            'posts' => 'Posts',
             'categories' => 'Categories',
             'general' => 'General',
             'history' => 'History',

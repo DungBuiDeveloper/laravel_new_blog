@@ -39,6 +39,20 @@ class MenuComposer
                     'icon' => '<i class="nav-icon fas fa-photo-video"></i>',
                     'child' => null,
                 ],
+                [
+                    'name' => __('menus.backend.sidebar.tags'),
+                    'link' => route('admin.tags.list'),
+                    'active' => \Request::is('admin/tags/*'),
+                    'icon' => '<i class="nav-icon fas fa-tag"></i>',
+                    'child' => null,
+                ],
+                [
+                    'name' => __('menus.backend.sidebar.posts'),
+                    'link' => route('admin.posts.list'),
+                    'active' => \Request::is('admin/posts/*'),
+                    'icon' => '<i class="nav-icon fas fa-newspaper"></i>',
+                    'child' => null,
+                ],
             ],
             'admin' => [],
         ];
