@@ -29,3 +29,7 @@ output.txt
 coverage.xml
 /coverage
 .phpunit.result.cache
+tests
+package-lock.json
+composer.lock
+yarn.lock
