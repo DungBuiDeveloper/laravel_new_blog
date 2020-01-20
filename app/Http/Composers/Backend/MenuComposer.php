@@ -25,11 +25,12 @@ class MenuComposer
                     'icon' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
                     'child' => null,
                 ],
+
                 [
-                    'name' => __('menus.backend.sidebar.categories'),
-                    'link' => route('admin.categories.list'),
-                    'active' => \Request::is('admin/categories/*'),
-                    'icon' => '<i class="nav-icon fas fa-book"></i>',
+                    'name' => __('menus.backend.sidebar.posts'),
+                    'link' => route('admin.posts.list'),
+                    'active' => \Request::is('admin/posts/*'),
+                    'icon' => '<i class="nav-icon fas fa-newspaper"></i>',
                     'child' => null,
                 ],
                 [
@@ -40,17 +41,17 @@ class MenuComposer
                     'child' => null,
                 ],
                 [
+                    'name' => __('menus.backend.sidebar.categories'),
+                    'link' => route('admin.categories.list'),
+                    'active' => \Request::is('admin/categories/*'),
+                    'icon' => '<i class="nav-icon fas fa-book"></i>',
+                    'child' => null,
+                ],
+                [
                     'name' => __('menus.backend.sidebar.tags'),
                     'link' => route('admin.tags.list'),
                     'active' => \Request::is('admin/tags/*'),
                     'icon' => '<i class="nav-icon fas fa-tag"></i>',
-                    'child' => null,
-                ],
-                [
-                    'name' => __('menus.backend.sidebar.posts'),
-                    'link' => route('admin.posts.list'),
-                    'active' => \Request::is('admin/posts/*'),
-                    'icon' => '<i class="nav-icon fas fa-newspaper"></i>',
                     'child' => null,
                 ],
             ],

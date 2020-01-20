@@ -12,7 +12,6 @@ class AddFeildPost extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('the_excerpt');
             $table->unsignedBigInteger('thumbnail');
             $table->foreign('thumbnail')->references('id')->on('media')->onDelete('cascade');
         });
