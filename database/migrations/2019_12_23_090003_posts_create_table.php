@@ -16,8 +16,9 @@ class PostsCreateTable extends Migration
             $table->char('title', 255);
             $table->text('content');
             $table->string('slug')->unique();
-
+            $table->text('the_excerpt')->nullable();
             $table->unsignedBigInteger('author_id');
+            $table->string('type_thumb', 50);
             $table->timestamps();
         });
 
