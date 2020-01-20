@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-
     protected $guarded = [];
 
     protected $table = 'posts';
 
-    protected $fillable = ['title', 'the_excerpt', 'content' , 'slug' , 'author_id' , 'thumbnail' ,'created_at', 'updated_at'];
+    protected $fillable = ['title', 'the_excerpt', 'content', 'slug', 'author_id', 'thumbnail', 'created_at', 'updated_at'];
 
     public function categories()
     {

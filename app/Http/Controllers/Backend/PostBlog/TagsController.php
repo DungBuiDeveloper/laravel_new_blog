@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Backend\PostBlog;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\Backend\PostBlog\TagRequest;
 use App\Repositories\Backend\TagRepository;
+use App\Http\Requests\Backend\PostBlog\TagRequest;
 
 class TagsController extends Controller
 {
@@ -30,10 +29,8 @@ class TagsController extends Controller
      */
     public function showFormAdd()
     {
-
         return view('backend/tag/add');
     }
-
 
     /**
      * [createSlug Generate Unique slug tag].
@@ -81,7 +78,6 @@ class TagsController extends Controller
         return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tags.created'));
     }
 
-
     /**
      * [showFormEdit show Form Edit].
      * @param  string $slug [Unique String Get Tag]
@@ -93,8 +89,8 @@ class TagsController extends Controller
 
         return view('backend/Tag/edit')
             ->withTag($Tag);
-
     }
+
     /**
      * [editCategory Put Category].
      */
@@ -109,7 +105,6 @@ class TagsController extends Controller
 
         return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tags.created'));
     }
-
 
     /**
      * [destroy Delete Tag].

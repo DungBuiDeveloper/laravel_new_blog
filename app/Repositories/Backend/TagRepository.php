@@ -66,10 +66,10 @@ class TagRepository extends BaseRepository
         try {
             $tag = $this->model::create($data);
 
-
             return $tag;
         } catch (\Exception $e) {
-            die( $e->getMessage());
+            die($e->getMessage());
+
             return $e->getMessage();
         }
     }
@@ -116,15 +116,11 @@ class TagRepository extends BaseRepository
         return $this->model::where('slug', $slug)->first();
     }
 
-
     public function editTag($data)
     {
         $tag = $this->model::find($data['id']);
         $update = $tag->update($data);
 
-
-
         return $tag;
     }
-
 }

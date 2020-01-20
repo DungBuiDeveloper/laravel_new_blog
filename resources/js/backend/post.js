@@ -3,11 +3,9 @@ import addDeleteForms from "../plugins";
 
 $(function () {
 
-    function functionName() {
-
-    }
-    $('.nav-custom .nav-item').click(function() {
     
+    $('.nav-custom .nav-item').click(function() {
+
         $('#type_thumb').val('image');
         if ($(this).find('.nav-link').attr('href') == '#video_thumbnail') {
             $('#type_thumb').val('video');

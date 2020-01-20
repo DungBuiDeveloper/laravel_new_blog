@@ -20,7 +20,6 @@ class CategoriesController extends Controller
 
     public function index()
     {
-
         return view('backend/category/index');
     }
 
@@ -73,6 +72,7 @@ class CategoriesController extends Controller
         $data['slug'] = $this->createSlug($data['name']);
 
         $save = $this->CategoryRepository->storeCategory($data);
+
         if (! $save->id) {
             \App::abort(500, 'Some Error');
         }

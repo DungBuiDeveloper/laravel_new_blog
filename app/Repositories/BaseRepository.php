@@ -160,8 +160,8 @@ abstract class BaseRepository implements RepositoryContract
      *
      * @param $id
      *
-     * @return bool|null
      * @throws \Exception
+     * @return bool|null
      */
     public function deleteById($id)
     {

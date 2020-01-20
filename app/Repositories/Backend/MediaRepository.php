@@ -23,14 +23,14 @@ class MediaRepository extends BaseRepository
         $this->model = $model;
         $this->model_media = $model_media;
     }
+
     /**
-     * [getMediaManager Show Data for admin chose image]
+     * [getMediaManager Show Data for admin chose image].
      * @return [type]       [description]
      */
     public function getMediaManager()
     {
-
-        return $this->model::first()->media()->where('mime_type','LIKE','image/%')->paginate(20)->appends(['type' => 'media']);
+        return $this->model::first()->media()->where('mime_type', 'LIKE', 'image/%')->paginate(20)->appends(['type' => 'media']);
     }
 
     public function getAjaxDataTable()

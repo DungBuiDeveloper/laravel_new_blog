@@ -139,15 +139,14 @@ $(function () {
 
     //Get Url Param by Javascript
     function getUrlParam( paramName ) {
-       var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
-       var match = window.location.search.match( reParam );
-
+       let reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
+       let match = window.location.search.match( reParam );
        return ( match && match.length > 1 ) ? match[1] : null;
     }
     // Close CK Editor And Paste url
     function returnFileUrl(fileUrl) {
 
-        var funcNum = getUrlParam( 'CKEditorFuncNum' );
+        let funcNum = getUrlParam( 'CKEditorFuncNum' );
 
         window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
         window.close();

@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Backend\PostBlog\TagsController;
 
 // All route names are prefixed with 'admin.'.

@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Backend\PostBlog;
 
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\Backend\PostBlog\PostRequest;
 use App\Repositories\Backend\PostRepository;
-use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\MediaRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Backend\CategoryRepository;
+use App\Http\Requests\Backend\PostBlog\PostRequest;
+
 class PostsController extends Controller
 {
-    public function __construct(PostRepository $PostRepository , MediaRepository $MediaRepository , CategoryRepository $CategoryRepository)
+    public function __construct(PostRepository $PostRepository, MediaRepository $MediaRepository, CategoryRepository $CategoryRepository)
     {
         $this->PostRepository = $PostRepository;
         $this->MediaRepository = $MediaRepository;
@@ -36,24 +35,18 @@ class PostsController extends Controller
      */
     public function showFormAdd(PostRequest $request)
     {
-        /*
-            Init Data Post
-         */
+        // Init Data Post
         $allImage = $this->MediaRepository->getMediaManager();
         $categories = $this->CategoryRepository->getAllCategories();
-        /*
-            Ajax Return View Data
-         */
+        // Ajax Return View Data
         if ($request->ajax()) {
             return view('backend/includes/modal_list_image')->withAllImage($allImage);
         }
 
-
         return view('backend/post/add')
-        ->withAllImage($allImage)
-        ->withCategories($categories);
+            ->withAllImage($allImage)
+            ->withCategories($categories);
     }
-
 
     /**
      * [createSlug Generate Unique slug Post].
@@ -89,12 +82,10 @@ class PostsController extends Controller
      */
     public function storePost(PostRequest $request)
     {
-
         $files = $request->file('files');
 
         return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
         $data = $request->All();
-
 
         $data['slug'] = $this->createSlug($data['title']);
         $data['author_id'] = auth()->user()->id;
@@ -108,7 +99,6 @@ class PostsController extends Controller
         return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
     }
 
-
     /**
      * [showFormEdit show Form Edit].
      * @param  string $slug [Unique String Get Post]
@@ -120,8 +110,8 @@ class PostsController extends Controller
 
         return view('backend/post/edit')
             ->withPost($Post);
-
     }
+
     /**
      * [editCategory Put Category].
      */
@@ -136,7 +126,6 @@ class PostsController extends Controller
 
         return redirect()->route('admin.Posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
     }
-
 
     /**
      * [destroy Delete Post].

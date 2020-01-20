@@ -25,7 +25,7 @@ class TagRequest extends FormRequest
     {
         return [
             'tag_name' => 'required|max:255',
-            'slug' => 'unique'
+            'slug' => 'unique',
         ];
     }
 

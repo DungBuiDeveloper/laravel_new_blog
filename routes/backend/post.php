@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Backend\PostBlog\PostsController;
 
 // All route names are prefixed with 'admin.'.

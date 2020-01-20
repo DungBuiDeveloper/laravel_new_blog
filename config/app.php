@@ -165,7 +165,6 @@ return [
     */
 
     'providers' => [
-        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         // Laravel Framework Service Providers...
         Illuminate\Auth\AuthServiceProvider::class,

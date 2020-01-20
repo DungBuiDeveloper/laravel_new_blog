@@ -11,7 +11,6 @@ use App\Repositories\BaseRepository;
  */
 class PostRepository extends BaseRepository
 {
-
     /**
      * UserRepository constructor.
      *
@@ -28,7 +27,7 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * [getAjaxDataTable Ajax DataTable]
+     * [getAjaxDataTable Ajax DataTable].
      * @param  [string] $search [Search Text]
      * @return [array]         [data Posts for datatable load]
      */
@@ -76,16 +75,17 @@ class PostRepository extends BaseRepository
     {
         try {
             $postNew = $this->model::create($data);
+
             if ($postNew) {
                 if (isset($data['cat_id'])) {
                     $postNew->categories()->attach($data['cat_id']);
                 }
-
             }
 
             return $postNew;
         } catch (\Exception $e) {
             die($e->getMessage());
+
             return $e->getMessage();
         }
     }
@@ -132,15 +132,11 @@ class PostRepository extends BaseRepository
         return $this->model::where('slug', $slug)->first();
     }
 
-
     public function editPost($data)
     {
         $post = $this->model::find($data['id']);
         $update = $post->update($data);
 
-
-
         return $post;
     }
-
 }

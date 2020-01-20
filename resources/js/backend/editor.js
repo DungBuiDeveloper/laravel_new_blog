@@ -12,9 +12,13 @@ $(function () {
             language: langCKeditor4,
             embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
             uploadUrl: 'http://myblog.test/admin/media/storeCkEditor',
+
             filebrowserBrowseUrl: `${baseUrl}/admin/media`,
-            filebrowserUploadUrl: `${baseUrl}/admin/media/storeCkEditor?_token=${$('meta[name="csrf-token"]').attr('content')}`,
+            filebrowserImageBrowseUrl: `${baseUrl}/admin/media`,
+            filebrowserUploadUrl: `${baseUrl}/admin/media/storeCkEditor?_token=${$('meta[name="csrf-token"]').attr('content')}&&type=file`,
+            filebrowserImageUploadUrl: `${baseUrl}/admin/media/storeCkEditor?_token=${$('meta[name="csrf-token"]').attr('content')}&&type=image`,
             filebrowserUploadMethod: 'form',
+
             removeDialogTabs: 'image:advanced;link:advanced'
 
         });
@@ -24,8 +28,10 @@ $(function () {
 
 
 
+
+
     $(window).on('hashchange', function() {
-        console.log(window.location.hash);
+
         if (window.location.hash) {
             var page = window.location.hash.replace('#', '');
             if (page == Number.NaN || page <= 0) {

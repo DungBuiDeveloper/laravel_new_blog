@@ -51,7 +51,6 @@ class MediaLibraryController extends Controller
      */
     public function store(MediaLibraryRequest $request)
     {
-
         $files = $request->file('files');
 
         foreach ($files as $key => $file) {
@@ -77,8 +76,9 @@ class MediaLibraryController extends Controller
 
         return redirect()->route('admin.media.index')->withFlashDanger(__('media.deleted'));
     }
+
     /**
-     * [storeOnlyImage Create Media Image for upload ]
+     * [storeOnlyImage Create Media Image for upload ].
      * @return [object] [Model iamge]
      */
     public function storeOnlyImage(MediaLibraryRequest $request)
@@ -90,18 +90,45 @@ class MediaLibraryController extends Controller
                 ->addMedia($file)
                 ->usingName($name)
                 ->toMediaCollection();
-            return response()->json(['success' => true, 'message' => __('media.created'), 'url_image' => $mediaUpload->getUrl('thumb') , 'id_image' => $mediaUpload->id]);
+
+            return response()->json(['success' => true, 'message' => __('media.created'), 'url_image' => $mediaUpload->getUrl('thumb'), 'id_image' => $mediaUpload->id]);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
-
-
     }
 
+    //Upload CkEditor
     public function storeCkEditor(MediaLibraryRequest $request)
     {
-        if($request->hasFile('upload')) {
+
+        if ($request->hasFile('upload')) {
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            //get Mime Type
+            if (isset($_FILES['upload']['tmp_name'])) {
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime = finfo_file($finfo, $_FILES['upload']['tmp_name']);
+
+                finfo_close($finfo);
+            }
+            //reg check image mimetype
+            $re = '/^[^?]*.(jpg|jpeg|gif|png)/m';
+            //Check File is Image
+            if ($_GET['type'] == 'image' && preg_match_all($re, $mime, $matches, PREG_SET_ORDER, 0) == 0) {
+                $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '' , 'not image')</script>";
+
+                @header('Content-type: text/html; charset=utf-8');
+                echo $response;
+                die();
+            }
+            $reVideo = '/video\/*/';
+            if (preg_match_all($reVideo, $mime, $matches, PREG_SET_ORDER, 0) == 1) {
+                $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '' , 'Video let use Embed')</script>";
+
+                @header('Content-type: text/html; charset=utf-8');
+                echo $response;
+                die();
+            }
+
 
 
 
@@ -111,16 +138,19 @@ class MediaLibraryController extends Controller
                 ->addMedia($file)
                 ->usingName($name)
                 ->toMediaCollection();
-            $url = url($mediaUpload->getUrl('thumb'));
+                
+            //if Image Get thumnail preview
+            if ($_GET['type'] == 'image') {
+                $url = url($mediaUpload->getUrl('thumb'));
+            }else {
+                $url = $mediaUpload->getUrl();
+            }
 
-            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', 'uploaded')</script>";
-            
+
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url')</script>";
+
             @header('Content-type: text/html; charset=utf-8');
             echo $response;
-
-
-
         }
     }
 }

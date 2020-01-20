@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Backend;
 
+use Cache;
 use DataTables;
 use App\Models\BackEnd\Category;
 use App\Repositories\BaseRepository;
-use Cache;
+
 /**
  * Class PermissionRepository.
  */
@@ -22,13 +23,12 @@ class CategoryRepository extends BaseRepository
     }
 
     /**
-     * [getAjaxDataTable Ajax Process DataTable]
+     * [getAjaxDataTable Ajax Process DataTable].
      * @param  [string] $search [Search String]
      * @return [array]         [datatable Category]
      */
     public function getAjaxDataTable($search)
     {
-
         $category = $this->model::with('parentOf')->get();
 
         return Datatables::of($category)
@@ -82,7 +82,6 @@ class CategoryRepository extends BaseRepository
      */
     public function storeCategory($data)
     {
-
         try {
             $cacheCategory = Cache::get('category', $this->model::all());
 
@@ -93,6 +92,7 @@ class CategoryRepository extends BaseRepository
             }
             $cacheCategory[] = $categoryNew;
             Cache::forever('category', $cacheCategory);
+
             return $categoryNew;
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -118,9 +118,10 @@ class CategoryRepository extends BaseRepository
      */
     public function getAllCategories()
     {
-        $category =  Cache::rememberForever('category', function() {
+        $category = Cache::rememberForever('category', function () {
             return $this->model::all();
         });
+
         return $category;
     }
 
@@ -130,15 +131,14 @@ class CategoryRepository extends BaseRepository
      */
     public function destroy($id)
     {
-
         try {
             $deleteCat = $this->model::find($id);
             $cacheCategory = Cache::get('category', null);
+
             if ($deleteCat) {
                 if ($cacheCategory) {
                     foreach ($cacheCategory as $key => $cat) {
                         if ($cat->id == $id) {
-
                             unset($cacheCategory[$key]);
 
                             Cache::forever('category', $cacheCategory);
@@ -153,7 +153,6 @@ class CategoryRepository extends BaseRepository
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
     }
 
     public function getCategoryBySlug($slug = '')
@@ -163,8 +162,6 @@ class CategoryRepository extends BaseRepository
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
-
     }
 
     public function editCategory($data)
@@ -176,26 +173,26 @@ class CategoryRepository extends BaseRepository
             if (isset($data['parent_id'])) {
                 $categoryEdit->parentOf()->sync($data['parent_id']);
             }
+
             if ($update) {
                 $cacheCategory = Cache::get('category', null);
+
                 if ($cacheCategory) {
                     foreach ($cacheCategory as $key => $cat) {
                         if ($cat->id == $data['id']) {
-
                             $cacheCategory[$key] = $categoryEdit;
 
                             Cache::forever('category', $cacheCategory);
                         }
                     }
                 }
+
                 return $categoryEdit;
             }
+
             return false;
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
     }
-
-
 }

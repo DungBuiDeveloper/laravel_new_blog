@@ -22,12 +22,13 @@ class MediaLibraryRequest extends FormRequest
     public function rules(): array
     {
         $currentURL = \URL::current();
-        
-        if (strpos($currentURL,"storeCkEditor") > 0) {
+
+        if (strpos($currentURL, 'storeCkEditor') > 0) {
             return [
                 'upload' => 'required',
             ];
         }
+
         return [
             'files' => 'required',
         ];
