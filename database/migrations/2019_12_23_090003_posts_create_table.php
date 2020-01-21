@@ -15,6 +15,7 @@ class PostsCreateTable extends Migration
             $table->bigIncrements('id');
             $table->char('title', 255);
             $table->text('content');
+            $table->string('video')->nullable();
             $table->string('slug')->unique();
             $table->text('the_excerpt')->nullable();
             $table->unsignedBigInteger('author_id');

@@ -80,8 +80,11 @@ class PostRepository extends BaseRepository
                 if (isset($data['cat_id'])) {
                     $postNew->categories()->attach($data['cat_id']);
                 }
+                if (isset($data['tag_id'])) {
+                    $postNew->tags()->attach($data['tag_id']);
+                }
             }
-
+            
             return $postNew;
         } catch (\Exception $e) {
             die($e->getMessage());

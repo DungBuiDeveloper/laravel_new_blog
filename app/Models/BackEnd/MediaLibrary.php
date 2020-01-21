@@ -13,9 +13,7 @@ class MediaLibrary extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-
         if (strstr($media->mime_type, 'image')) {
-
             $this->addMediaConversion('thumb')
                 ->width(600)
                 ->height(800)

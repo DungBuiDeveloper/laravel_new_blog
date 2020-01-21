@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Backend;
 
+use Cache;
 use DataTables;
 use App\Models\BackEnd\Tag;
 use App\Repositories\BaseRepository;
@@ -64,12 +65,17 @@ class TagRepository extends BaseRepository
     public function storeTag($data)
     {
         try {
-            $tag = $this->model::create($data);
+            $cacheTag = Cache::get('tags', $this->model::all());
 
-            return $tag;
+            $tagNew = $this->model::create($data);
+
+            $cacheTag[] = $tagNew;
+
+            Cache::forever('tags', $cacheTag);
+
+            return $tagNew;
         } catch (\Exception $e) {
-            die($e->getMessage());
-
+            
             return $e->getMessage();
         }
     }
@@ -82,9 +88,13 @@ class TagRepository extends BaseRepository
      */
     public function getRelatedSlugs($slug, $id = 0)
     {
-        return $this->model::select('slug')->where('slug', 'like', $slug.'%')
-            ->where('id', '<>', $id)
-            ->get();
+        try {
+            return $this->model::select('slug')->where('slug', 'like', $slug.'%')
+                ->where('id', '<>', $id)
+                ->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -93,34 +103,90 @@ class TagRepository extends BaseRepository
      */
     public function getAlltags()
     {
-        return $this->model::all();
+        try {
+            $tag = Cache::rememberForever('tags', function () {
+                return $this->model::all();
+            });
+
+            return $tag;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
-     * [DELETE Category].
-     * @return [array]
+     * [DELETE Tag].
      */
     public function destroy($id)
     {
-        $tagDel = $this->model::find($id);
+        try {
+            $deleteTag = $this->model::find($id);
 
-        if ($tagDel) {
-            return $tagDel->delete();
+            $cacheTag = Cache::get('tags', null);
+
+            if ($deleteTag) {
+                if ($cacheTag) {
+                    foreach ($cacheTag as $key => $tag) {
+                        if ($tag->id == $id) {
+                            unset($cacheTag[$key]);
+                            Cache::forever('tags', $cacheTag);
+                        }
+                    }
+                }
+                return $deleteTag->delete();
+            }
+            return false;
+
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
         }
-
-        return false;
     }
 
+    /**
+     * [getTagBySlug get Detail Tag By Slug].
+     * @param  string $slug [description]
+     * @return array
+     */
     public function getTagBySlug($slug = '')
     {
-        return $this->model::where('slug', $slug)->first();
+        try {
+            return $this->model::where('slug', $slug)->first();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
+    /**
+     * [editTag Edit Tag].
+     * @param  array $data [data for edit Tag]
+     * @return array
+     */
     public function editTag($data)
     {
-        $tag = $this->model::find($data['id']);
-        $update = $tag->update($data);
+        try {
+            $tagEdit = $this->model::find($data['id']);
+            $update = $tagEdit->update($data);
 
-        return $tag;
+            if ($update) {
+                $cacheTag = Cache::get('tags', null);
+
+                if ($cacheTag) {
+                    foreach ($cacheTag as $key => $tag) {
+                        if ($tag->id == $data['id']) {
+                            $cacheTag[$key] = $tagEdit;
+
+                            Cache::forever('tags', $cacheTag);
+                        }
+                    }
+                }
+
+                return $tagEdit;
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

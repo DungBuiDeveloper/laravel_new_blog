@@ -100,7 +100,6 @@ class MediaLibraryController extends Controller
     //Upload CkEditor
     public function storeCkEditor(MediaLibraryRequest $request)
     {
-
         if ($request->hasFile('upload')) {
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
             //get Mime Type
@@ -121,6 +120,7 @@ class MediaLibraryController extends Controller
                 die();
             }
             $reVideo = '/video\/*/';
+
             if (preg_match_all($reVideo, $mime, $matches, PREG_SET_ORDER, 0) == 1) {
                 $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '' , 'Video let use Embed')</script>";
 
@@ -129,23 +129,19 @@ class MediaLibraryController extends Controller
                 die();
             }
 
-
-
-
             $file = $request->file('upload');
             $name = $file->getClientOriginalName();
             $mediaUpload = MediaLibrary::first()
                 ->addMedia($file)
                 ->usingName($name)
                 ->toMediaCollection();
-                
+
             //if Image Get thumnail preview
             if ($_GET['type'] == 'image') {
                 $url = url($mediaUpload->getUrl('thumb'));
-            }else {
+            } else {
                 $url = $mediaUpload->getUrl();
             }
-
 
             $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url')</script>";
 

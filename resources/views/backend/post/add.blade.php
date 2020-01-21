@@ -47,9 +47,9 @@
 
                         @if (sizeof($categories) > 0)
                             <div class="form-group">
-                                <label for="cat_id">@lang('labels.backend.access.category.table.parent_of')</label>
+                                <label for="cat_id">@lang('labels.backend.access.post.table.category')</label>
                                 <select
-                                    title="@lang('labels.backend.access.category.table.parent_of')"
+                                    title="@lang('labels.backend.access.post.table.category')"
                                     data-live-search="true"
                                     multiple
                                     class="form-control selectpicker" id="cat_id"
@@ -61,6 +61,25 @@
                             </div>
                         @endif
                         {{-- Categories --}}
+
+                        @if (sizeof($tags) > 0)
+                            <div class="form-group">
+                                <label for="tag_id">@lang('labels.backend.access.post.table.tag')</label>
+                                <select
+                                    title="@lang('labels.backend.access.post.table.tag')"
+                                    data-live-search="true"
+                                    multiple
+                                    class="form-control selectpicker" id="tag_id"
+                                    name="tag_id[]">
+                                    @foreach ($tags as $key => $tag)
+                                        <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
+                        {{-- Categories --}}
+
+
 
 
                         <ul class="nav nav-tabs nav-custom" role="tablist">

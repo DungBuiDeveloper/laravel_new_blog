@@ -72,10 +72,10 @@ class TagsController extends Controller
         $save = $this->TagRepository->storeTag($data);
 
         if (! $save->id) {
-            \App::abort(500, 'Some Error');
+            \App::abort(500);
         }
 
-        return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tags.created'));
+        return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tag.created'));
     }
 
     /**
@@ -87,6 +87,9 @@ class TagsController extends Controller
     {
         $Tag = $this->TagRepository->getTagBySlug($slug);
 
+        if (!$Tag) {
+            \App::abort(404);
+        }
         return view('backend/Tag/edit')
             ->withTag($Tag);
     }
@@ -100,10 +103,10 @@ class TagsController extends Controller
         $edit = $this->TagRepository->editTag($data);
 
         if (! $edit->id) {
-            \App::abort(500, 'Some Error');
+            \App::abort(500);
         }
 
-        return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tags.created'));
+        return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tag.created'));
     }
 
     /**
@@ -115,9 +118,9 @@ class TagsController extends Controller
         $delete = $this->TagRepository->destroy($_GET['id']);
 
         if ($delete) {
-            return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tags.created'));
+            return redirect()->route('admin.tags.list')->withFlashSuccess(__('alerts.backend.tag.deleted'));
         }
-        \App::abort(500, 'Some Error');
+        \App::abort(500);
     }
 
     /**

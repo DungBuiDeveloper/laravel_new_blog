@@ -164,6 +164,11 @@ class CategoryRepository extends BaseRepository
         }
     }
 
+    /**
+     * [editCategory Edit Category].
+     * @param  [array] $data [data for edit]
+     * @return [array or false]
+     */
     public function editCategory($data)
     {
         try {

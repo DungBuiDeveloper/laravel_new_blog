@@ -28,6 +28,11 @@ return [
             'deleted' => 'The media was successfully deleted.',
             'updated' => 'The media was successfully updated.',
         ],
+        'tag' => [
+            'created' => 'The tag was successfully created.',
+            'deleted' => 'The tag was successfully deleted.',
+            'updated' => 'The tag was successfully updated.',
+        ],
         'users' => [
             'cant_resend_confirmation' => 'The application is currently set to manually approve users.',
             'confirmation_email' => 'A new confirmation e-mail has been sent to the address on file.',

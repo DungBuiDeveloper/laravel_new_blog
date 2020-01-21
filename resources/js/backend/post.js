@@ -1,15 +1,14 @@
-
 import addDeleteForms from "../plugins";
-
 $(function () {
 
-    
+
     $('.nav-custom .nav-item').click(function() {
 
         $('#type_thumb').val('image');
         if ($(this).find('.nav-link').attr('href') == '#video_thumbnail') {
             $('#type_thumb').val('video');
         }
+        
     })
     //Get embed When input video change
     $(document).on("change","#video",function() {
@@ -31,11 +30,31 @@ $(function () {
         $('.preview_image').empty();
         $('.preview_image').append(preview);
         $("#imagelistModal .close").click();
-
     });
 
     if ($('#post_add_edit').length) {
 
+        $('input').on('blur', function() {
+            console.log($("#post_add_edit").valid());
+
+        });
+
+        //Validate
+
+        $("#post_add_edit").validate({
+            errorClass: "alert alert-danger",
+            errorElement: "div",
+            rules:{
+                title:{
+                    required:true,
+                },
+                the_excerpt:{
+                    required:true,
+                }
+            }
+        });
+
+        //Dropzone
         new Dropzone('#post_add_edit', {
 
             autoProcessQueue: true,

@@ -77,6 +77,8 @@ return [
                     'title' => 'Title',
                     'slug' => 'Slug',
                     'content' => 'Content',
+                    'category' => 'Categories',
+                    'tag' => 'Tags',
                     'the_excerpt' => 'Excerpt',
                     'thumbnail' => 'Thumbnail',
                     'author_id' => 'Author',

@@ -6,14 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Backend\PostRepository;
 use App\Repositories\Backend\MediaRepository;
 use App\Repositories\Backend\CategoryRepository;
+use App\Repositories\Backend\TagRepository;
 use App\Http\Requests\Backend\PostBlog\PostRequest;
 
 class PostsController extends Controller
 {
-    public function __construct(PostRepository $PostRepository, MediaRepository $MediaRepository, CategoryRepository $CategoryRepository)
+    public function __construct(
+        PostRepository $PostRepository,
+        MediaRepository $MediaRepository,
+        TagRepository $TagRepository,
+        CategoryRepository $CategoryRepository)
     {
         $this->PostRepository = $PostRepository;
         $this->MediaRepository = $MediaRepository;
+        $this->TagRepository = $TagRepository;
         $this->CategoryRepository = $CategoryRepository;
     }
 
@@ -35,9 +41,11 @@ class PostsController extends Controller
      */
     public function showFormAdd(PostRequest $request)
     {
+
         // Init Data Post
         $allImage = $this->MediaRepository->getMediaManager();
         $categories = $this->CategoryRepository->getAllCategories();
+        $tags = $this->TagRepository->getAllTags();
         // Ajax Return View Data
         if ($request->ajax()) {
             return view('backend/includes/modal_list_image')->withAllImage($allImage);
@@ -45,6 +53,7 @@ class PostsController extends Controller
 
         return view('backend/post/add')
             ->withAllImage($allImage)
+            ->withTags($tags)
             ->withCategories($categories);
     }
 
@@ -82,19 +91,18 @@ class PostsController extends Controller
      */
     public function storePost(PostRequest $request)
     {
-        $files = $request->file('files');
-
-        return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
         $data = $request->All();
 
         $data['slug'] = $this->createSlug($data['title']);
         $data['author_id'] = auth()->user()->id;
 
+
         $save = $this->PostRepository->storePost($data);
 
         if (! $save->id) {
-            \App::abort(500, 'Some Error');
+            \App::abort(500);
         }
+        // return view('backend/post/add');
 
         return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
     }

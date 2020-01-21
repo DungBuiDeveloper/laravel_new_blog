@@ -23,9 +23,13 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
+
+        if ($this->method() == "GET") {
+            return [];
+        }
         return [
-            // 'tag_name' => 'required|max:255',
-            // 'slug' => 'unique'
+            'title' => 'required',
+            'the_excerpt' => 'required'
         ];
     }
 

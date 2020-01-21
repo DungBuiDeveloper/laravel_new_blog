@@ -17,9 +17,9 @@ function addDeleteForms() {
                 '</form>\n';
         } else { return '' }
     })
-        .attr('href', 'javascript:;')
-        .attr('style', 'cursor:pointer;')
-        .attr('onclick', '$(this).find("form").submit();');
+    .attr('href', 'javascript:;')
+    .attr('style', 'cursor:pointer;')
+    .attr('onclick', '$(this).find("form").submit();');
 }
 var langDataTable = 'en.json';
 var langCKeditor4 = 'en';
@@ -34,6 +34,9 @@ export default addDeleteForms;
  * Place any jQuery/helper plugins in here.
  */
 $(function () {
+
+
+
     /**
      * Add the data-method="delete" forms to all delete links
      */
@@ -43,9 +46,12 @@ $(function () {
      * Disable all submit buttons once clicked
      */
     $('form').submit(function () {
-        $(this).find('input[type="submit"]').attr('disabled', true);
-        $(this).find('button[type="submit"]').attr('disabled', true);
-        return true;
+        if($("form").valid()) {
+            $(this).find('input[type="submit"]').attr('disabled', true);
+            $(this).find('button[type="submit"]').attr('disabled', true);
+            return true;
+        }
+
     });
 
     /**
@@ -93,17 +99,14 @@ $(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-
+    /**
+     * [headers Add Header CSRF TOKEN AJAX]
+     */
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-
-
-
-
 
 
 });
