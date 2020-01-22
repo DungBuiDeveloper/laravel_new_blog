@@ -24,7 +24,7 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>@lang('labels.backend.access.post.table.name')</th>
+                    <th>@lang('labels.backend.access.post.table.title')</th>
                     <th>@lang('labels.backend.access.post.table.slug')</th>
                     <th>@lang('labels.backend.access.post.table.created_at')</th>
                     <th>@lang('labels.backend.access.post.table.updated_at')</th>

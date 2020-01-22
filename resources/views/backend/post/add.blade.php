@@ -1,5 +1,5 @@
 @extends('backend.layouts.general')
-@section('title', __('labels.backend.access.post.management') . ' | ' . __('labels.backend.access.post.edit'))
+@section('title', __('labels.backend.access.post.management') . ' | ' . __('labels.backend.access.post.create'))
 @section('content')
     <div class="card">
 
@@ -118,12 +118,6 @@
 
                         </div>
                         {{-- Thumnail --}}
-
-
-
-
-
-
 
 
 

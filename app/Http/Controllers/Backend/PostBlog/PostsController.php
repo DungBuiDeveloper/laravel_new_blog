@@ -9,6 +9,7 @@ use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\TagRepository;
 use App\Http\Requests\Backend\PostBlog\PostRequest;
 
+
 class PostsController extends Controller
 {
     public function __construct(
@@ -25,14 +26,13 @@ class PostsController extends Controller
 
     public function ajaxDataTable()
     {
-        return $this->PostRepository->getAjaxDataTable(null);
+        return $this->PostRepository->getAjaxDataTable();
     }
 
     public function index()
     {
-        $post = $this->PostRepository->test();
-        // dd($post[0]->getThumbnail->getUrl('thumb'));
-        return view('backend/post/index')->withPost($post);
+
+        return view('backend/post/index');
     }
 
     /**
@@ -99,10 +99,11 @@ class PostsController extends Controller
 
         $save = $this->PostRepository->storePost($data);
 
-        if (! $save->id) {
+        if (isset($save->id) == false) {
+
             \App::abort(500);
         }
-        // return view('backend/post/add');
+
 
         return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
     }
