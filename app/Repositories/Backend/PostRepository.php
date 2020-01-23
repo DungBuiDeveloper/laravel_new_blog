@@ -33,10 +33,42 @@ class PostRepository extends BaseRepository
     public function getAjaxDataTable()
     {
         try {
-            $post = $this->model::select('id','title','slug','created_at','updated_at')->get();
+
+            $post = $this->model::select('id','thumbnail','type_thumb','title','slug','created_at','updated_at','video')->with('getThumbnail')->get();
 
             return Datatables::of($post)
+                ->editColumn('thumbnail', function ($post) {
+                    $idTable = '#post_table_'.$post["id"];
+                    if ($post['type_thumb'] == 'image') {
 
+                        $media = '<script>
+                                var media = window.convertMedia("'.\URL::to('/').$post->getThumbnail->getUrl('thumb').'",false);
+
+                                $("'.$idTable.'").find("td").eq(2).html(media);
+                                $("'.$idTable.'").find("td").eq(2).find("img").width(50);
+
+                                $("'.$idTable.'").find("td").eq(2).find("a").fancybox();
+
+                            </script>';
+                        return $media;
+                    }else {
+                        $media = '<script>
+                                var video = `<a class="various fancybox fancybox.iframe" href="'.$post['video'].'">Video (iframe)</a>`;
+
+
+                                $("'.$idTable.'").find("td").eq(2).html(video);
+                                $("'.$idTable.'").find("td").eq(2).find("a").fancybox();
+
+
+                            </script>';
+                        return $media;
+
+                    }
+                })
+
+                ->setRowId(function ($post) {
+                    return 'post_table_'.$post->id;
+                })
                 ->editColumn('action', function ($post) {
                     $editButton = '<div class="btn-group btn-group-sm"><a
                     title="'.__('buttons.general.crud.edit').'"
@@ -62,10 +94,9 @@ class PostRepository extends BaseRepository
                     return $editButton.$viewButton.$deleteButton;
                 })
 
-                ->rawColumns(['action'])
+                ->rawColumns(['thumbnail','action'])
                 ->toJson();
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return $e->getMessage();
         }
 
@@ -125,7 +156,13 @@ class PostRepository extends BaseRepository
      */
     public function getAllPosts()
     {
-        return $this->model::all();
+        try {
+            return $this->model::all();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+
     }
 
     /**
@@ -134,13 +171,21 @@ class PostRepository extends BaseRepository
      */
     public function destroy($id)
     {
-        $postDel = $this->model::find($id);
 
-        if ($postDel) {
-            return $postDel->delete();
+        try {
+            $postDel = $this->model::find($id);
+
+            if ($postDel) {
+                return $postDel->delete();
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            die($e->getMessage());
+            return $e->getMessage();
         }
 
-        return false;
+
     }
 
     public function getPostBySlug($slug = '')

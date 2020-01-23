@@ -34,10 +34,7 @@ $(function () {
 
     if ($('#post_add_edit').length) {
 
-        $('input').on('blur', function() {
-            console.log($("#post_add_edit").valid());
 
-        });
 
         //Validate
 
@@ -141,6 +138,8 @@ $(function () {
             "columns": [
                 { data: "id" , orderable: false},
                 { data: "title" },
+                { data: "thumbnail" },
+                { data: "type_thumb" },
                 { data: "slug" },
                 { data: "created_at" },
                 { data: "updated_at"},

@@ -33,6 +33,11 @@ return [
             'deleted' => 'The tag was successfully deleted.',
             'updated' => 'The tag was successfully updated.',
         ],
+        'post' => [
+            'created' => 'The category was successfully created.',
+            'deleted' => 'The category was successfully deleted.',
+            'updated' => 'The category was successfully updated.',
+        ],
         'users' => [
             'cant_resend_confirmation' => 'The application is currently set to manually approve users.',
             'confirmation_email' => 'A new confirmation e-mail has been sent to the address on file.',

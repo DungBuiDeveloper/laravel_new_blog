@@ -20,6 +20,8 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -31,7 +33,7 @@ window.Dropzone = Dropzone;
 window.Swal = Swal;
 window._ = _; // Lodash
 window.baseUrl = $('base').attr('href');
-
+window.fancybox = require('@fancyapps/fancybox');
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -53,7 +55,7 @@ window.convertMedia = function convertMedia (html , video){
     }else if(pattern2.test(html) && video == true) {
         replacement = '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
         return html.replace(pattern2, replacement);
-    }else if(pattern2.test(html) && video == false) {
+    }else if(pattern3.test(html) && video == false) {
         replacement = '<a href="$1" target="_blank"><img class="sml" src="$1" /></a><br />';
         return html.replace(pattern3, replacement);
     }else {
@@ -61,6 +63,7 @@ window.convertMedia = function convertMedia (html , video){
     }
 
 }
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

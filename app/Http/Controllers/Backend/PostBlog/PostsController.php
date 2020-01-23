@@ -26,6 +26,7 @@ class PostsController extends Controller
 
     public function ajaxDataTable()
     {
+
         return $this->PostRepository->getAjaxDataTable();
     }
 
@@ -105,7 +106,7 @@ class PostsController extends Controller
         }
 
 
-        return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
+        return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.post.created'));
     }
 
     /**
@@ -133,7 +134,7 @@ class PostsController extends Controller
             \App::abort(500, 'Some Error');
         }
 
-        return redirect()->route('admin.Posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
+        return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.post.updated'));
     }
 
     /**
@@ -145,7 +146,7 @@ class PostsController extends Controller
         $delete = $this->PostRepository->destroy($_GET['id']);
 
         if ($delete) {
-            return redirect()->route('admin.Posts.list')->withFlashSuccess(__('alerts.backend.Posts.created'));
+            return redirect()->route('admin.posts.list')->withFlashSuccess(__('alerts.backend.post.deleted'));
         }
         \App::abort(500, 'Some Error');
     }
