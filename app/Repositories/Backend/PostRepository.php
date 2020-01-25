@@ -39,30 +39,35 @@ class PostRepository extends BaseRepository
             return Datatables::of($post)
                 ->editColumn('thumbnail', function ($post) {
                     $idTable = '#post_table_'.$post["id"];
-                    if ($post['type_thumb'] == 'image') {
+                    if (  isset($post['thumbnail']) || isset($post['video'])) {
+                        if ($post['type_thumb'] == 'image') {
+                            $media = '<script>
+                                    var media = window.convertMedia("'.env('APP_URL').$post->getThumbnail->getUrl('thumb').'",false);
 
-                        $media = '<script>
-                                var media = window.convertMedia("'.\URL::to('/').$post->getThumbnail->getUrl('thumb').'",false);
+                                    $("'.$idTable.'").find("td").eq(2).html(media);
+                                    $("'.$idTable.'").find("td").eq(2).find("img").width("auto").height(50);
 
-                                $("'.$idTable.'").find("td").eq(2).html(media);
-                                $("'.$idTable.'").find("td").eq(2).find("img").width(50);
+                                    $("'.$idTable.'").find("td").eq(2).find("a").fancybox();
 
-                                $("'.$idTable.'").find("td").eq(2).find("a").fancybox();
+                                </script>';
+                            return $media;
+                        }
+                        else {
+                            $media = '<script>
+                                    var video = `<a class="various fancybox fancybox.iframe" href="'.$post['video'].'">Video</a>`;
 
-                            </script>';
-                        return $media;
+
+                                    $("'.$idTable.'").find("td").eq(2).html(video);
+                                    $("'.$idTable.'").find("td").eq(2).find("a").fancybox();
+
+
+                                </script>';
+                            return $media;
+
+                        }
+
                     }else {
-                        $media = '<script>
-                                var video = `<a class="various fancybox fancybox.iframe" href="'.$post['video'].'">Video (iframe)</a>`;
-
-
-                                $("'.$idTable.'").find("td").eq(2).html(video);
-                                $("'.$idTable.'").find("td").eq(2).find("a").fancybox();
-
-
-                            </script>';
-                        return $media;
-
+                        return  '<img src="https://fakeimg.pl/50x50/?text=No Image">';
                     }
                 })
 
@@ -181,7 +186,7 @@ class PostRepository extends BaseRepository
 
             return false;
         } catch (\Exception $e) {
-            die($e->getMessage());
+
             return $e->getMessage();
         }
 
@@ -190,14 +195,47 @@ class PostRepository extends BaseRepository
 
     public function getPostBySlug($slug = '')
     {
-        return $this->model::where('slug', $slug)->first();
+        try {
+            return $this->model::where('slug', $slug)->with('categories')->with('tags')->with('getThumbnail')->first();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
     }
 
     public function editPost($data)
     {
-        $post = $this->model::find($data['id']);
-        $update = $post->update($data);
+        try {
 
-        return $post;
+
+
+            $postEdit = $this->model::find($data['id']);
+
+            if (!$postEdit) {
+                return false;
+            }
+
+            $dataReturn = DB::transaction(function () use ($data , $postEdit) {
+                $update = $postEdit->update($data);
+
+                if (isset($data['cat_id'])) {
+                    $postEdit->categories()->sync($data['cat_id']);
+                }
+                if (isset($data['tag_id'])) {
+                    $postEdit->tags()->sync($data['tag_id']);
+                }
+                return $postEdit;
+
+            });
+
+            return $dataReturn;
+
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return $e->getMessage();
+        }
+
+
     }
 }

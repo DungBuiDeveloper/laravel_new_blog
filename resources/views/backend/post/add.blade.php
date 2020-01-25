@@ -164,11 +164,6 @@
     </div>
     {{-- List Image Modal --}}
 
-<style>
 
-    .cke_dialog_ui_input_file {
-        height: 1000px;
-    }
-</style>
 
 @endsection

@@ -23,16 +23,19 @@ class PostsController extends Controller
         $this->TagRepository = $TagRepository;
         $this->CategoryRepository = $CategoryRepository;
     }
-
+    /**
+     * [ajaxDataTable Get Data Ajax Table]
+     * @return array [post data]
+     */
     public function ajaxDataTable()
     {
-
         return $this->PostRepository->getAjaxDataTable();
     }
-
+    /**
+     * [index Show list view]
+     */
     public function index()
     {
-
         return view('backend/post/index');
     }
 
@@ -116,10 +119,41 @@ class PostsController extends Controller
      */
     public function showFormEdit($slug = '')
     {
+        //Check Post By Slug
         $Post = $this->PostRepository->getPostBySlug($slug);
 
+        if ($Post == null) {
+            \App::abort(404);
+        }
+
+        // Init Data Post
+        $allImage = $this->MediaRepository->getMediaManager();
+        $categories = $this->CategoryRepository->getAllCategories();
+        $tags = $this->TagRepository->getAllTags();
+        $oldCatId = [];
+        $oldTagId = [];
+
+        if (sizeof($Post['categories'])) {
+            foreach ($Post['categories'] as $key => $value) {
+                $oldCatId[] = $value['id'];
+            }
+        }
+
+        if (sizeof($Post['tags'])) {
+            foreach ($Post['tags'] as $key => $value) {
+                $oldTagId[] = $value['id'];
+            }
+        }
+
+
         return view('backend/post/edit')
-            ->withPost($Post);
+            ->withAllImage($allImage)
+            ->withTags($tags)
+            ->withPost($Post)
+            ->withOldCategories($oldCatId)
+            ->withOldTags($oldTagId)
+            ->withCategories($categories);
+
     }
 
     /**
@@ -128,8 +162,9 @@ class PostsController extends Controller
     public function editPost(PostRequest $request)
     {
         $data = $request->all();
-        $edit = $this->PostRepository->editPost($data);
 
+        $edit = $this->PostRepository->editPost($data);
+        
         if (! $edit->id) {
             \App::abort(500, 'Some Error');
         }

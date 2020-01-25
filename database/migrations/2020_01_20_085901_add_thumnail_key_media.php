@@ -12,8 +12,8 @@ class AddThumnailKeyMedia extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('thumbnail');
-            $table->foreign('thumbnail')->references('id')->on('media')->nullable()->onDelete('cascade');
+            $table->unsignedBigInteger('thumbnail')->nullable();
+            $table->foreign('thumbnail')->references('id')->on('media')->onDelete('set null');
         });
     }
 

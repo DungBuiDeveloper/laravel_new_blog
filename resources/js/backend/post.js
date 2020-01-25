@@ -1,6 +1,20 @@
 import addDeleteForms from "../plugins";
 $(function () {
 
+    if ($('.edit-post').length > 0) {
+        let type_thumb = $('#type_thumb').val();
+
+        if (type_thumb == 'image') {
+            if ($('#thumbnailEditImage').val()) {
+                $('.preview_image').empty().append(`<img src="${$('#thumbnailEditImage').val()}" alt="preview_image" />`);
+                convertMedia($('#thumbnail').val() , false);
+            }
+
+        }else {
+            $('.preview_video').empty().append(convertMedia($('#video').val() , true));
+        }
+    }
+
 
     $('.nav-custom .nav-item').click(function() {
 
@@ -136,7 +150,7 @@ $(function () {
             },
             "lengthMenu": [ 5, 10, 15, 25, 30 ],
             "columns": [
-                { data: "id" , orderable: false},
+                { data: "id"},
                 { data: "title" },
                 { data: "thumbnail" },
                 { data: "type_thumb" },
@@ -146,7 +160,7 @@ $(function () {
                 { data: "action" , orderable: false},
 
             ],
-            "order": [[ 1, "desc" ]],
+            "order": [[ 6, "desc" ]],
             "drawCallback": ( settings ) => {
                 addDeleteForms();
             }
