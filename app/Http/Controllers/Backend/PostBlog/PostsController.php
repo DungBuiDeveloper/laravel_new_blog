@@ -164,7 +164,7 @@ class PostsController extends Controller
         $data = $request->all();
 
         $edit = $this->PostRepository->editPost($data);
-        
+
         if (! $edit->id) {
             \App::abort(500, 'Some Error');
         }
@@ -193,8 +193,10 @@ class PostsController extends Controller
      */
     public function detail($slug)
     {
-        $Post = $this->PostRepository->getPostBySlug($slug);
-
-        return view('backend/post/detail')->withPost($Post);
+        $post = $this->PostRepository->getPostBySlug($slug);
+        if (!$post) {
+            \App::abort(404);
+        }
+        return view('backend/post/detail')->withPost($post);
     }
 }

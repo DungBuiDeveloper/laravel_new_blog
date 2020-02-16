@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
             'password_expires',
             'permission:view backend',
         ],
+
     ];
 
     /**

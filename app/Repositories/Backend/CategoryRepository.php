@@ -112,6 +112,7 @@ class CategoryRepository extends BaseRepository
             ->get();
     }
 
+
     /**
      * [getAllCategories].
      * @return [array] [All Category ]
@@ -186,7 +187,6 @@ class CategoryRepository extends BaseRepository
                     foreach ($cacheCategory as $key => $cat) {
                         if ($cat->id == $data['id']) {
                             $cacheCategory[$key] = $categoryEdit;
-
                             Cache::forever('category', $cacheCategory);
                         }
                     }
