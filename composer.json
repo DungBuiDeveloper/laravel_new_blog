@@ -14,8 +14,10 @@
         "altek/accountant": "^1.2",
         "altek/eventually": "^1.0",
         "arcanedev/log-viewer": "^5.0",
+        "barryvdh/laravel-cors": "^1.0",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",
+        "dingo/api": "^2.4",
         "fideloper/proxy": "^4.0",
         "lab404/laravel-impersonate": "^1.4",
         "langleyfoxall/laravel-nist-password-rules": "^4.0",
@@ -28,6 +30,7 @@
         "spatie/laravel-permission": "^3.0",
         "spatie/laravel-searchable": "^1.5",
         "torann/geoip": "^1.0",
+        "tymon/jwt-auth": "dev-develop",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

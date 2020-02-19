@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
             'first_name' => 'Super',
             'last_name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => 'dungdamdang',
+            'password' => '11t1061001',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'confirmed' => true,
         ]);

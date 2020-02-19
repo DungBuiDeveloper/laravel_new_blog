@@ -202,6 +202,9 @@ return [
         App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+
+        // JWT
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ],
 
     /*

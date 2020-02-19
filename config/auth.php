@@ -41,9 +41,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'driver' => 'jwt',
+            'provider' => 'user_customers'
         ],
     ],
 
@@ -70,10 +69,10 @@ return [
             'model' => App\Models\Auth\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'user_customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Auth\User_customer::class,
+        ],
     ],
 
     /*
