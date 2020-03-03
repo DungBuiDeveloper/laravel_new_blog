@@ -18,7 +18,7 @@ $api->version('v1',['prefix' => 'api/v1', 'namespace' => 'App\Api\V1\Controllers
         $api->get('me', 'UserController@me');
     });
 
-    $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
+    $api->group(['middleware' => 'auth:api'], function(Router $api) {
         $api->get('protected', function() {
             return response()->json([
                 'message' => 'Access to protected resources granted! You are seeing this text as you provided the token correctly.'
@@ -35,7 +35,7 @@ $api->version('v1',['prefix' => 'api/v1', 'namespace' => 'App\Api\V1\Controllers
         ]);
     });
 
-    $api->get('hello', function() {
+    $api->post('hello', function() {
         return response()->json([
             'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
         ]);

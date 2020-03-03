@@ -27,8 +27,7 @@ class PostsController extends Controller
      * [ajaxDataTable Get Data Ajax Table]
      * @return array [post data]
      */
-    public function ajaxDataTable()
-    {
+    public function ajaxDataTable() {
         return $this->PostRepository->getAjaxDataTable();
     }
     /**

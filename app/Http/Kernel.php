@@ -44,18 +44,15 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\ToBeLoggedOut::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
         ],
-
         'admin' => [
             'auth',
             'password_expires',
             'permission:view backend',
         ],
-
     ];
 
     /**

@@ -8,7 +8,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title', app_name())</title>
+        <title>
+            @yield('title', app_name())
+        </title>
         <meta name="description" content="@yield('meta_description', 'Laravel Boilerplate')">
         <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
         @yield('meta')
@@ -27,12 +29,17 @@
 
         <div id="app">
             @include('includes.partials.logged-in-as')
-            @include('frontend.includes.nav')
+            @include('frontend.includes.header')
+            {{-- header --}}
 
-            <div class="container">
+            <div class="site-main">
                 @include('includes.partials.messages')
                 @yield('content')
             </div><!-- container -->
+
+            @include('frontend.includes.footer')
+            {{-- footer --}}
+
         </div><!-- #app -->
 
         <!-- Scripts -->

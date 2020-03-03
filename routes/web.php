@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\Backend\ThemeOptionController;
 
 /*
  * Global Routes
@@ -31,5 +32,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      * These routes can not be hit if the password is expired
      */
+    Route::get('theme-option', [ThemeOptionController::class, 'index'])->name('option.index');
+
     include_route_files(__DIR__.'/backend/');
 });
